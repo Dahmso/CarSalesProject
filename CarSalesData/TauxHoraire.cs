@@ -17,7 +17,6 @@ namespace CarSalesData
         public int Id { get; set; }
         public int IdOperation { get; set; }
         public decimal Valeur { get; set; }
-        public bool TauxActuel { get; set; }
         public System.DateTime DateModification { get; set; }
     
         public virtual Operation Operation { get; set; }

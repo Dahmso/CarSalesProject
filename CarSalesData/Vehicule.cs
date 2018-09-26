@@ -21,8 +21,10 @@ namespace CarSalesData
             this.Location = new HashSet<Location>();
             this.Operation = new HashSet<Operation>();
             this.Plein = new HashSet<Plein>();
+            this.VehiculeOccasion = new HashSet<VehiculeOccasion>();
         }
     
+        public int Id { get; set; }
         public string Immatriculation { get; set; }
         public Nullable<int> IdProprietaire { get; set; }
         public string Marque { get; set; }
@@ -35,7 +37,6 @@ namespace CarSalesData
         public System.DateTime DateAchat { get; set; }
         public Nullable<System.DateTime> DateVente { get; set; }
     
-        public virtual Client Client { get; set; }
         public virtual ConstructeursVoiture ConstructeursVoiture { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ContratAchat> ContratAchat { get; set; }
@@ -45,6 +46,8 @@ namespace CarSalesData
         public virtual ICollection<Operation> Operation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Plein> Plein { get; set; }
-        public virtual VehiculeOccasion VehiculeOccasion { get; set; }
+        public virtual Professionnel Professionnel { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VehiculeOccasion> VehiculeOccasion { get; set; }
     }
 }

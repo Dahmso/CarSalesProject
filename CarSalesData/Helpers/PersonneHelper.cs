@@ -42,5 +42,26 @@ namespace CarSalesData.Helpers
         #region  Fields
         private CarSalesEntities _db;
         #endregion
+
+        #region Methods
+        public Personne GetItem(string email, string mdp)
+        {
+            using (_db = new CarSalesEntities())
+            {
+                Personne p = null;
+
+                var query = from personne in _db.Personne
+                            where personne.Email == email && personne.MotDePasse == mdp
+                            select personne;
+
+                if (query.Count() > 0)
+                {
+                    p = query.First();
+                }
+
+                return p;
+            }
+        }
+        #endregion
     }
 }

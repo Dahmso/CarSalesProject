@@ -25,16 +25,15 @@ namespace CarSalesData
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Client> Client { get; set; }
         public virtual DbSet<ConstructeursVoiture> ConstructeursVoiture { get; set; }
         public virtual DbSet<ContratAchat> ContratAchat { get; set; }
-        public virtual DbSet<Employe> Employe { get; set; }
         public virtual DbSet<Facture> Facture { get; set; }
         public virtual DbSet<Location> Location { get; set; }
         public virtual DbSet<Operation> Operation { get; set; }
         public virtual DbSet<Personne> Personne { get; set; }
         public virtual DbSet<Piece> Piece { get; set; }
         public virtual DbSet<Plein> Plein { get; set; }
+        public virtual DbSet<Professionnel> Professionnel { get; set; }
         public virtual DbSet<TauxHoraire> TauxHoraire { get; set; }
         public virtual DbSet<Vehicule> Vehicule { get; set; }
         public virtual DbSet<VehiculeOccasion> VehiculeOccasion { get; set; }

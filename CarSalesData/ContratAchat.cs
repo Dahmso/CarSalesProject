@@ -16,10 +16,10 @@ namespace CarSalesData
     {
         public int Id { get; set; }
         public int IdEmploye { get; set; }
-        public string IdVehicule { get; set; }
+        public int IdVehicule { get; set; }
         public System.DateTime DateContrat { get; set; }
     
-        public virtual Employe Employe { get; set; }
+        public virtual Personne Personne { get; set; }
         public virtual Vehicule Vehicule { get; set; }
     }
 }

@@ -12,22 +12,30 @@ namespace CarSalesData
     using System;
     using System.Collections.Generic;
     
-    public partial class Employe
+    public partial class Professionnel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Employe()
+        public Professionnel()
         {
-            this.ContratAchat = new HashSet<ContratAchat>();
             this.Location = new HashSet<Location>();
+            this.Plein = new HashSet<Plein>();
+            this.Vehicule = new HashSet<Vehicule>();
         }
     
         public int IdPersonne { get; set; }
-        public string MotDePasse { get; set; }
+        public int TypeClient { get; set; }
+        public string Siret { get; set; }
+        public string NomEntreprise { get; set; }
+        public string AdresseEntreprise { get; set; }
+        public string CodePostal { get; set; }
+        public string VilleEntreprise { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ContratAchat> ContratAchat { get; set; }
+        public virtual ICollection<Location> Location { get; set; }
         public virtual Personne Personne { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Location> Location { get; set; }
+        public virtual ICollection<Plein> Plein { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Vehicule> Vehicule { get; set; }
     }
 }

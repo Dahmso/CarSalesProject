@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CarSalesData;
+using CarSalesData.Helpers;
 
 namespace CarSalesProject.Controllers
 {
@@ -10,21 +12,21 @@ namespace CarSalesProject.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            Personne personne = new Personne();
+            return View("Index", personne);
         }
 
-        public ActionResult About()
+        public ActionResult ValidationConnexion(Personne personne)
         {
-            ViewBag.Message = "Your application description page.";
+            Personne p = PersonneHelper.Current.GetItem(personne.Email, personne.MotDePasse);
+            if (p != null)
+            {
+                Session["Personne"] = p;
+                return RedirectToAction("Index", "Account");
+            }
 
-            return View();
+            return Index();
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }

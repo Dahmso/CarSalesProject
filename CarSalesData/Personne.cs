@@ -14,7 +14,15 @@ namespace CarSalesData
     
     public partial class Personne
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Personne()
+        {
+            this.ContratAchat = new HashSet<ContratAchat>();
+            this.Location = new HashSet<Location>();
+        }
+    
         public int Id { get; set; }
+        public int TypePersonne { get; set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
         public string Adresse1 { get; set; }
@@ -23,8 +31,12 @@ namespace CarSalesData
         public string NumeroTelephone { get; set; }
         public string CodePostal { get; set; }
         public string Ville { get; set; }
+        public string MotDePasse { get; set; }
     
-        public virtual Client Client { get; set; }
-        public virtual Employe Employe { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ContratAchat> ContratAchat { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Location> Location { get; set; }
+        public virtual Professionnel Professionnel { get; set; }
     }
 }

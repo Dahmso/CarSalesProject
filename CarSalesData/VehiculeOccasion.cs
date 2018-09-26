@@ -14,9 +14,9 @@ namespace CarSalesData
     
     public partial class VehiculeOccasion
     {
-        public string Immatriculation { get; set; }
+        public int IdVehicule { get; set; }
         public int KilometrageAchat { get; set; }
-        public int KilometrageVente { get; set; }
+        public Nullable<int> KilometrageVente { get; set; }
     
         public virtual Vehicule Vehicule { get; set; }
     }

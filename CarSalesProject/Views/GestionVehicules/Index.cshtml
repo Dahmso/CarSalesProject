@@ -22,7 +22,7 @@
             @Html.DropDownListFor(m => m.vehicule.Immatriculation, Model.Vehicules.Select(v => new SelectListItem
        {
            Value = v.Immatriculation.ToString(),
-           Text = v.Immatriculation
+           Text = v.Immatriculation.ToString()
        }), new {@class = "form_control"})
             @Html.ValidationMessageFor(m => m.Vehicules)
         </div>

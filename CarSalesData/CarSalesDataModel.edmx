@@ -5,18 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="CarSalesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Client">
-          <Key>
-            <PropertyRef Name="IdPersonne" />
-          </Key>
-          <Property Name="IdPersonne" Type="int" Nullable="false" />
-          <Property Name="TypeClient" Type="int" Nullable="false" />
-          <Property Name="Siret" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="NomEntreprise" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="AdresseEntreprise" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="CodePostal" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="VilleEntreprise" Type="varchar" MaxLength="100" Nullable="false" />
-        </EntityType>
         <EntityType Name="ConstructeursVoiture">
           <Key>
             <PropertyRef Name="Nom" />
@@ -34,15 +22,8 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdEmploye" Type="int" Nullable="false" />
-          <Property Name="IdVehicule" Type="char" MaxLength="9" Nullable="false" />
+          <Property Name="IdVehicule" Type="int" Nullable="false" />
           <Property Name="DateContrat" Type="datetime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Employe">
-          <Key>
-            <PropertyRef Name="IdPersonne" />
-          </Key>
-          <Property Name="IdPersonne" Type="int" Nullable="false" />
-          <Property Name="MotDePasse" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Facture">
           <Key>
@@ -58,7 +39,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdClient" Type="int" Nullable="false" />
           <Property Name="IdEmploye" Type="int" Nullable="false" />
-          <Property Name="IdVehicule" Type="char" MaxLength="9" Nullable="false" />
+          <Property Name="IdVehicule" Type="int" Nullable="false" />
           <Property Name="DateDebut" Type="datetime" Nullable="false" />
           <Property Name="PrixLocation" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Duree" Type="int" Nullable="false" />
@@ -69,7 +50,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdFacture" Type="int" Nullable="false" />
-          <Property Name="IdImmatriculation" Type="char" MaxLength="9" Nullable="false" />
+          <Property Name="IdVehicule" Type="int" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Duree" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="DateOperation" Type="datetime" Nullable="false" />
@@ -79,14 +60,16 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypePersonne" Type="int" Nullable="false" />
           <Property Name="Nom" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Prenom" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Adresse1" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Adresse2" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Adresse2" Type="varchar" MaxLength="100" />
           <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="NumeroTelephone" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="CodePostal" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Ville" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="MotDePasse" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Piece">
           <Key>
@@ -103,11 +86,23 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdFournisseur" Type="int" Nullable="false" />
-          <Property Name="IdImmatriculation" Type="char" MaxLength="9" Nullable="false" />
+          <Property Name="IdVehicule" Type="int" Nullable="false" />
           <Property Name="DatePlein" Type="datetime" Nullable="false" />
           <Property Name="Volume" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="PrixLitre" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Kilometrage" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Professionnel">
+          <Key>
+            <PropertyRef Name="IdPersonne" />
+          </Key>
+          <Property Name="IdPersonne" Type="int" Nullable="false" />
+          <Property Name="TypeClient" Type="int" Nullable="false" />
+          <Property Name="Siret" Type="varchar" MaxLength="100" />
+          <Property Name="NomEntreprise" Type="varchar" MaxLength="100" />
+          <Property Name="AdresseEntreprise" Type="varchar" MaxLength="100" />
+          <Property Name="CodePostal" Type="varchar" MaxLength="100" />
+          <Property Name="VilleEntreprise" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="TauxHoraire">
           <Key>
@@ -116,13 +111,13 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdOperation" Type="int" Nullable="false" />
           <Property Name="Valeur" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="TauxActuel" Type="bit" Nullable="false" />
           <Property Name="DateModification" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Vehicule">
           <Key>
-            <PropertyRef Name="Immatriculation" />
+            <PropertyRef Name="Id" />
           </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Immatriculation" Type="char" MaxLength="9" Nullable="false" />
           <Property Name="IdProprietaire" Type="int" />
           <Property Name="Marque" Type="varchar" MaxLength="100" Nullable="false" />
@@ -135,32 +130,35 @@
           <Property Name="DateAchat" Type="datetime" Nullable="false" />
           <Property Name="DateVente" Type="datetime" />
         </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'CarSales.dbo.VehiculeOccasion' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
         <EntityType Name="VehiculeOccasion">
           <Key>
-            <PropertyRef Name="Immatriculation" />
+            <PropertyRef Name="IdVehicule" />
+            <PropertyRef Name="KilometrageAchat" />
           </Key>
-          <Property Name="Immatriculation" Type="char" MaxLength="9" Nullable="false" />
+          <Property Name="IdVehicule" Type="int" Nullable="false" />
           <Property Name="KilometrageAchat" Type="int" Nullable="false" />
-          <Property Name="KilometrageVente" Type="int" Nullable="false" />
+          <Property Name="KilometrageVente" Type="int" />
         </EntityType>
         <Association Name="FK_Client_Personne">
           <End Role="Personne" Type="Self.Personne" Multiplicity="1" />
-          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Professionnel" Type="Self.Professionnel" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Personne">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Client">
+            <Dependent Role="Professionnel">
               <PropertyRef Name="IdPersonne" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ContratAchat_Employe">
-          <End Role="Employe" Type="Self.Employe" Multiplicity="1" />
+        <Association Name="FK_ContratAchat_Personne">
+          <End Role="Personne" Type="Self.Personne" Multiplicity="1" />
           <End Role="ContratAchat" Type="Self.ContratAchat" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Employe">
-              <PropertyRef Name="IdPersonne" />
+            <Principal Role="Personne">
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ContratAchat">
               <PropertyRef Name="IdEmploye" />
@@ -172,30 +170,18 @@
           <End Role="ContratAchat" Type="Self.ContratAchat" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Vehicule">
-              <PropertyRef Name="Immatriculation" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ContratAchat">
               <PropertyRef Name="IdVehicule" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Employe_Personne">
-          <End Role="Personne" Type="Self.Personne" Multiplicity="1" />
-          <End Role="Employe" Type="Self.Employe" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Personne">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Employe">
-              <PropertyRef Name="IdPersonne" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Location_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Professionnel" Type="Self.Professionnel" Multiplicity="1" />
           <End Role="Location" Type="Self.Location" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Client">
+            <Principal Role="Professionnel">
               <PropertyRef Name="IdPersonne" />
             </Principal>
             <Dependent Role="Location">
@@ -203,12 +189,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Location_Employe">
-          <End Role="Employe" Type="Self.Employe" Multiplicity="1" />
+        <Association Name="FK_Location_Personne">
+          <End Role="Personne" Type="Self.Personne" Multiplicity="1" />
           <End Role="Location" Type="Self.Location" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Employe">
-              <PropertyRef Name="IdPersonne" />
+            <Principal Role="Personne">
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Location">
               <PropertyRef Name="IdEmploye" />
@@ -220,7 +206,7 @@
           <End Role="Location" Type="Self.Location" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Vehicule">
-              <PropertyRef Name="Immatriculation" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Location">
               <PropertyRef Name="IdVehicule" />
@@ -244,10 +230,10 @@
           <End Role="Operation" Type="Self.Operation" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Vehicule">
-              <PropertyRef Name="Immatriculation" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Operation">
-              <PropertyRef Name="IdImmatriculation" />
+              <PropertyRef Name="IdVehicule" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -264,10 +250,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Plein_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Professionnel" Type="Self.Professionnel" Multiplicity="1" />
           <End Role="Plein" Type="Self.Plein" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Client">
+            <Principal Role="Professionnel">
               <PropertyRef Name="IdPersonne" />
             </Principal>
             <Dependent Role="Plein">
@@ -280,10 +266,10 @@
           <End Role="Plein" Type="Self.Plein" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Vehicule">
-              <PropertyRef Name="Immatriculation" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Plein">
-              <PropertyRef Name="IdImmatriculation" />
+              <PropertyRef Name="IdVehicule" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -300,10 +286,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Vehicule_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Professionnel" Type="Self.Professionnel" Multiplicity="0..1" />
           <End Role="Vehicule" Type="Self.Vehicule" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Client">
+            <Principal Role="Professionnel">
               <PropertyRef Name="IdPersonne" />
             </Principal>
             <Dependent Role="Vehicule">
@@ -325,52 +311,53 @@
         </Association>
         <Association Name="FK_VehiculeOccasion_Vehicule">
           <End Role="Vehicule" Type="Self.Vehicule" Multiplicity="1" />
-          <End Role="VehiculeOccasion" Type="Self.VehiculeOccasion" Multiplicity="0..1" />
+          <End Role="VehiculeOccasion" Type="Self.VehiculeOccasion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Vehicule">
-              <PropertyRef Name="Immatriculation" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="VehiculeOccasion">
-              <PropertyRef Name="Immatriculation" />
+              <PropertyRef Name="IdVehicule" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="CarSalesModelStoreContainer">
-          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ConstructeursVoiture" EntityType="Self.ConstructeursVoiture" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContratAchat" EntityType="Self.ContratAchat" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Employe" EntityType="Self.Employe" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Facture" EntityType="Self.Facture" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Operation" EntityType="Self.Operation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Personne" EntityType="Self.Personne" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Piece" EntityType="Self.Piece" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Plein" EntityType="Self.Plein" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Professionnel" EntityType="Self.Professionnel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TauxHoraire" EntityType="Self.TauxHoraire" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vehicule" EntityType="Self.Vehicule" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="VehiculeOccasion" EntityType="Self.VehiculeOccasion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehiculeOccasion" EntityType="Self.VehiculeOccasion" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VehiculeOccasion].[IdVehicule] AS [IdVehicule], 
+    [VehiculeOccasion].[KilometrageAchat] AS [KilometrageAchat], 
+    [VehiculeOccasion].[KilometrageVente] AS [KilometrageVente]
+    FROM [dbo].[VehiculeOccasion] AS [VehiculeOccasion]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Client_Personne" Association="Self.FK_Client_Personne">
             <End Role="Personne" EntitySet="Personne" />
-            <End Role="Client" EntitySet="Client" />
+            <End Role="Professionnel" EntitySet="Professionnel" />
           </AssociationSet>
-          <AssociationSet Name="FK_ContratAchat_Employe" Association="Self.FK_ContratAchat_Employe">
-            <End Role="Employe" EntitySet="Employe" />
+          <AssociationSet Name="FK_ContratAchat_Personne" Association="Self.FK_ContratAchat_Personne">
+            <End Role="Personne" EntitySet="Personne" />
             <End Role="ContratAchat" EntitySet="ContratAchat" />
           </AssociationSet>
           <AssociationSet Name="FK_ContratAchat_Vehicule" Association="Self.FK_ContratAchat_Vehicule">
             <End Role="Vehicule" EntitySet="Vehicule" />
             <End Role="ContratAchat" EntitySet="ContratAchat" />
           </AssociationSet>
-          <AssociationSet Name="FK_Employe_Personne" Association="Self.FK_Employe_Personne">
-            <End Role="Personne" EntitySet="Personne" />
-            <End Role="Employe" EntitySet="Employe" />
-          </AssociationSet>
           <AssociationSet Name="FK_Location_Client" Association="Self.FK_Location_Client">
-            <End Role="Client" EntitySet="Client" />
+            <End Role="Professionnel" EntitySet="Professionnel" />
             <End Role="Location" EntitySet="Location" />
           </AssociationSet>
-          <AssociationSet Name="FK_Location_Employe" Association="Self.FK_Location_Employe">
-            <End Role="Employe" EntitySet="Employe" />
+          <AssociationSet Name="FK_Location_Personne" Association="Self.FK_Location_Personne">
+            <End Role="Personne" EntitySet="Personne" />
             <End Role="Location" EntitySet="Location" />
           </AssociationSet>
           <AssociationSet Name="FK_Location_Vehicule" Association="Self.FK_Location_Vehicule">
@@ -390,7 +377,7 @@
             <End Role="Piece" EntitySet="Piece" />
           </AssociationSet>
           <AssociationSet Name="FK_Plein_Client" Association="Self.FK_Plein_Client">
-            <End Role="Client" EntitySet="Client" />
+            <End Role="Professionnel" EntitySet="Professionnel" />
             <End Role="Plein" EntitySet="Plein" />
           </AssociationSet>
           <AssociationSet Name="FK_Plein_Vehicule" Association="Self.FK_Plein_Vehicule">
@@ -402,7 +389,7 @@
             <End Role="TauxHoraire" EntitySet="TauxHoraire" />
           </AssociationSet>
           <AssociationSet Name="FK_Vehicule_Client" Association="Self.FK_Vehicule_Client">
-            <End Role="Client" EntitySet="Client" />
+            <End Role="Professionnel" EntitySet="Professionnel" />
             <End Role="Vehicule" EntitySet="Vehicule" />
           </AssociationSet>
           <AssociationSet Name="FK_Vehicule_ConstructeursVoiture" Association="Self.FK_Vehicule_ConstructeursVoiture">
@@ -419,22 +406,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CarSalesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Client">
-          <Key>
-            <PropertyRef Name="IdPersonne" />
-          </Key>
-          <Property Name="IdPersonne" Type="Int32" Nullable="false" />
-          <Property Name="TypeClient" Type="Int32" Nullable="false" />
-          <Property Name="Siret" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="NomEntreprise" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="AdresseEntreprise" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CodePostal" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="VilleEntreprise" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Personne" Relationship="Self.FK_Client_Personne" FromRole="Client" ToRole="Personne" />
-          <NavigationProperty Name="Location" Relationship="Self.FK_Location_Client" FromRole="Client" ToRole="Location" />
-          <NavigationProperty Name="Plein" Relationship="Self.FK_Plein_Client" FromRole="Client" ToRole="Plein" />
-          <NavigationProperty Name="Vehicule" Relationship="Self.FK_Vehicule_Client" FromRole="Client" ToRole="Vehicule" />
-        </EntityType>
         <EntityType Name="ConstructeursVoiture">
           <Key>
             <PropertyRef Name="Nom" />
@@ -453,20 +424,10 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdEmploye" Type="Int32" Nullable="false" />
-          <Property Name="IdVehicule" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IdVehicule" Type="Int32" Nullable="false" />
           <Property Name="DateContrat" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Employe" Relationship="Self.FK_ContratAchat_Employe" FromRole="ContratAchat" ToRole="Employe" />
+          <NavigationProperty Name="Personne" Relationship="Self.FK_ContratAchat_Personne" FromRole="ContratAchat" ToRole="Personne" />
           <NavigationProperty Name="Vehicule" Relationship="Self.FK_ContratAchat_Vehicule" FromRole="ContratAchat" ToRole="Vehicule" />
-        </EntityType>
-        <EntityType Name="Employe">
-          <Key>
-            <PropertyRef Name="IdPersonne" />
-          </Key>
-          <Property Name="IdPersonne" Type="Int32" Nullable="false" />
-          <Property Name="MotDePasse" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="ContratAchat" Relationship="Self.FK_ContratAchat_Employe" FromRole="Employe" ToRole="ContratAchat" />
-          <NavigationProperty Name="Personne" Relationship="Self.FK_Employe_Personne" FromRole="Employe" ToRole="Personne" />
-          <NavigationProperty Name="Location" Relationship="Self.FK_Location_Employe" FromRole="Employe" ToRole="Location" />
         </EntityType>
         <EntityType Name="Facture">
           <Key>
@@ -483,12 +444,12 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdClient" Type="Int32" Nullable="false" />
           <Property Name="IdEmploye" Type="Int32" Nullable="false" />
-          <Property Name="IdVehicule" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IdVehicule" Type="Int32" Nullable="false" />
           <Property Name="DateDebut" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PrixLocation" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Duree" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_Location_Client" FromRole="Location" ToRole="Client" />
-          <NavigationProperty Name="Employe" Relationship="Self.FK_Location_Employe" FromRole="Location" ToRole="Employe" />
+          <NavigationProperty Name="Professionnel" Relationship="Self.FK_Location_Client" FromRole="Location" ToRole="Professionnel" />
+          <NavigationProperty Name="Personne" Relationship="Self.FK_Location_Personne" FromRole="Location" ToRole="Personne" />
           <NavigationProperty Name="Vehicule" Relationship="Self.FK_Location_Vehicule" FromRole="Location" ToRole="Vehicule" />
         </EntityType>
         <EntityType Name="Operation">
@@ -497,7 +458,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdFacture" Type="Int32" Nullable="false" />
-          <Property Name="IdImmatriculation" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IdVehicule" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Duree" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="DateOperation" Type="DateTime" Nullable="false" Precision="3" />
@@ -511,16 +472,19 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypePersonne" Type="Int32" Nullable="false" />
           <Property Name="Nom" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Prenom" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Adresse1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Adresse2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Adresse2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NumeroTelephone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CodePostal" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Ville" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_Client_Personne" FromRole="Personne" ToRole="Client" />
-          <NavigationProperty Name="Employe" Relationship="Self.FK_Employe_Personne" FromRole="Personne" ToRole="Employe" />
+          <Property Name="MotDePasse" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ContratAchat" Relationship="Self.FK_ContratAchat_Personne" FromRole="Personne" ToRole="ContratAchat" />
+          <NavigationProperty Name="Location" Relationship="Self.FK_Location_Personne" FromRole="Personne" ToRole="Location" />
+          <NavigationProperty Name="Professionnel" Relationship="Self.FK_Client_Personne" FromRole="Personne" ToRole="Professionnel" />
         </EntityType>
         <EntityType Name="Piece">
           <Key>
@@ -538,13 +502,29 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdFournisseur" Type="Int32" Nullable="false" />
-          <Property Name="IdImmatriculation" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IdVehicule" Type="Int32" Nullable="false" />
           <Property Name="DatePlein" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Volume" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="PrixLitre" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Kilometrage" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_Plein_Client" FromRole="Plein" ToRole="Client" />
+          <NavigationProperty Name="Professionnel" Relationship="Self.FK_Plein_Client" FromRole="Plein" ToRole="Professionnel" />
           <NavigationProperty Name="Vehicule" Relationship="Self.FK_Plein_Vehicule" FromRole="Plein" ToRole="Vehicule" />
+        </EntityType>
+        <EntityType Name="Professionnel">
+          <Key>
+            <PropertyRef Name="IdPersonne" />
+          </Key>
+          <Property Name="IdPersonne" Type="Int32" Nullable="false" />
+          <Property Name="TypeClient" Type="Int32" Nullable="false" />
+          <Property Name="Siret" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NomEntreprise" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AdresseEntreprise" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CodePostal" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="VilleEntreprise" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Location" Relationship="Self.FK_Location_Client" FromRole="Professionnel" ToRole="Location" />
+          <NavigationProperty Name="Personne" Relationship="Self.FK_Client_Personne" FromRole="Professionnel" ToRole="Personne" />
+          <NavigationProperty Name="Plein" Relationship="Self.FK_Plein_Client" FromRole="Professionnel" ToRole="Plein" />
+          <NavigationProperty Name="Vehicule" Relationship="Self.FK_Vehicule_Client" FromRole="Professionnel" ToRole="Vehicule" />
         </EntityType>
         <EntityType Name="TauxHoraire">
           <Key>
@@ -553,14 +533,14 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdOperation" Type="Int32" Nullable="false" />
           <Property Name="Valeur" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="TauxActuel" Type="Boolean" Nullable="false" />
           <Property Name="DateModification" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Operation" Relationship="Self.FK_TauxHoraire_Operation" FromRole="TauxHoraire" ToRole="Operation" />
         </EntityType>
         <EntityType Name="Vehicule">
           <Key>
-            <PropertyRef Name="Immatriculation" />
+            <PropertyRef Name="Id" />
           </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Immatriculation" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="IdProprietaire" Type="Int32" />
           <Property Name="Marque" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
@@ -572,71 +552,24 @@
           <Property Name="PrixVente" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="DateAchat" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DateVente" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_Vehicule_Client" FromRole="Vehicule" ToRole="Client" />
           <NavigationProperty Name="ConstructeursVoiture" Relationship="Self.FK_Vehicule_ConstructeursVoiture" FromRole="Vehicule" ToRole="ConstructeursVoiture" />
           <NavigationProperty Name="ContratAchat" Relationship="Self.FK_ContratAchat_Vehicule" FromRole="Vehicule" ToRole="ContratAchat" />
           <NavigationProperty Name="Location" Relationship="Self.FK_Location_Vehicule" FromRole="Vehicule" ToRole="Location" />
           <NavigationProperty Name="Operation" Relationship="Self.FK_Operation_Vehicule" FromRole="Vehicule" ToRole="Operation" />
           <NavigationProperty Name="Plein" Relationship="Self.FK_Plein_Vehicule" FromRole="Vehicule" ToRole="Plein" />
+          <NavigationProperty Name="Professionnel" Relationship="Self.FK_Vehicule_Client" FromRole="Vehicule" ToRole="Professionnel" />
           <NavigationProperty Name="VehiculeOccasion" Relationship="Self.FK_VehiculeOccasion_Vehicule" FromRole="Vehicule" ToRole="VehiculeOccasion" />
         </EntityType>
         <EntityType Name="VehiculeOccasion">
           <Key>
-            <PropertyRef Name="Immatriculation" />
+            <PropertyRef Name="IdVehicule" />
+            <PropertyRef Name="KilometrageAchat" />
           </Key>
-          <Property Name="Immatriculation" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IdVehicule" Type="Int32" Nullable="false" />
           <Property Name="KilometrageAchat" Type="Int32" Nullable="false" />
-          <Property Name="KilometrageVente" Type="Int32" Nullable="false" />
+          <Property Name="KilometrageVente" Type="Int32" />
           <NavigationProperty Name="Vehicule" Relationship="Self.FK_VehiculeOccasion_Vehicule" FromRole="VehiculeOccasion" ToRole="Vehicule" />
         </EntityType>
-        <Association Name="FK_Client_Personne">
-          <End Role="Personne" Type="Self.Personne" Multiplicity="1" />
-          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Personne">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Client">
-              <PropertyRef Name="IdPersonne" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Location_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="Location" Type="Self.Location" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="IdPersonne" />
-            </Principal>
-            <Dependent Role="Location">
-              <PropertyRef Name="IdClient" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Plein_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="Plein" Type="Self.Plein" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="IdPersonne" />
-            </Principal>
-            <Dependent Role="Plein">
-              <PropertyRef Name="IdFournisseur" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Vehicule_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
-          <End Role="Vehicule" Type="Self.Vehicule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="IdPersonne" />
-            </Principal>
-            <Dependent Role="Vehicule">
-              <PropertyRef Name="IdProprietaire" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Vehicule_ConstructeursVoiture">
           <End Role="ConstructeursVoiture" Type="Self.ConstructeursVoiture" Multiplicity="1" />
           <End Role="Vehicule" Type="Self.Vehicule" Multiplicity="*" />
@@ -649,12 +582,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ContratAchat_Employe">
-          <End Role="Employe" Type="Self.Employe" Multiplicity="1" />
+        <Association Name="FK_ContratAchat_Personne">
+          <End Role="Personne" Type="Self.Personne" Multiplicity="1" />
           <End Role="ContratAchat" Type="Self.ContratAchat" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Employe">
-              <PropertyRef Name="IdPersonne" />
+            <Principal Role="Personne">
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ContratAchat">
               <PropertyRef Name="IdEmploye" />
@@ -666,34 +599,10 @@
           <End Role="ContratAchat" Type="Self.ContratAchat" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Vehicule">
-              <PropertyRef Name="Immatriculation" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ContratAchat">
               <PropertyRef Name="IdVehicule" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employe_Personne">
-          <End Role="Personne" Type="Self.Personne" Multiplicity="1" />
-          <End Role="Employe" Type="Self.Employe" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Personne">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Employe">
-              <PropertyRef Name="IdPersonne" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Location_Employe">
-          <End Role="Employe" Type="Self.Employe" Multiplicity="1" />
-          <End Role="Location" Type="Self.Location" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Employe">
-              <PropertyRef Name="IdPersonne" />
-            </Principal>
-            <Dependent Role="Location">
-              <PropertyRef Name="IdEmploye" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -709,12 +618,36 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Location_Client">
+          <End Role="Professionnel" Type="Self.Professionnel" Multiplicity="1" />
+          <End Role="Location" Type="Self.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professionnel">
+              <PropertyRef Name="IdPersonne" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="IdClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_Personne">
+          <End Role="Personne" Type="Self.Personne" Multiplicity="1" />
+          <End Role="Location" Type="Self.Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personne">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="IdEmploye" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Location_Vehicule">
           <End Role="Vehicule" Type="Self.Vehicule" Multiplicity="1" />
           <End Role="Location" Type="Self.Location" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Vehicule">
-              <PropertyRef Name="Immatriculation" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Location">
               <PropertyRef Name="IdVehicule" />
@@ -726,10 +659,10 @@
           <End Role="Operation" Type="Self.Operation" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Vehicule">
-              <PropertyRef Name="Immatriculation" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Operation">
-              <PropertyRef Name="IdImmatriculation" />
+              <PropertyRef Name="IdVehicule" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -757,83 +690,102 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Client_Personne">
+          <End Role="Personne" Type="Self.Personne" Multiplicity="1" />
+          <End Role="Professionnel" Type="Self.Professionnel" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Personne">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Professionnel">
+              <PropertyRef Name="IdPersonne" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Plein_Client">
+          <End Role="Professionnel" Type="Self.Professionnel" Multiplicity="1" />
+          <End Role="Plein" Type="Self.Plein" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professionnel">
+              <PropertyRef Name="IdPersonne" />
+            </Principal>
+            <Dependent Role="Plein">
+              <PropertyRef Name="IdFournisseur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Plein_Vehicule">
           <End Role="Vehicule" Type="Self.Vehicule" Multiplicity="1" />
           <End Role="Plein" Type="Self.Plein" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Vehicule">
-              <PropertyRef Name="Immatriculation" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Plein">
-              <PropertyRef Name="IdImmatriculation" />
+              <PropertyRef Name="IdVehicule" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vehicule_Client">
+          <End Role="Professionnel" Type="Self.Professionnel" Multiplicity="0..1" />
+          <End Role="Vehicule" Type="Self.Vehicule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professionnel">
+              <PropertyRef Name="IdPersonne" />
+            </Principal>
+            <Dependent Role="Vehicule">
+              <PropertyRef Name="IdProprietaire" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_VehiculeOccasion_Vehicule">
           <End Role="Vehicule" Type="Self.Vehicule" Multiplicity="1" />
-          <End Role="VehiculeOccasion" Type="Self.VehiculeOccasion" Multiplicity="0..1" />
+          <End Role="VehiculeOccasion" Type="Self.VehiculeOccasion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Vehicule">
-              <PropertyRef Name="Immatriculation" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="VehiculeOccasion">
-              <PropertyRef Name="Immatriculation" />
+              <PropertyRef Name="IdVehicule" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="CarSalesEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Client" EntityType="Self.Client" />
           <EntitySet Name="ConstructeursVoiture" EntityType="Self.ConstructeursVoiture" />
           <EntitySet Name="ContratAchat" EntityType="Self.ContratAchat" />
-          <EntitySet Name="Employe" EntityType="Self.Employe" />
           <EntitySet Name="Facture" EntityType="Self.Facture" />
           <EntitySet Name="Location" EntityType="Self.Location" />
           <EntitySet Name="Operation" EntityType="Self.Operation" />
           <EntitySet Name="Personne" EntityType="Self.Personne" />
           <EntitySet Name="Piece" EntityType="Self.Piece" />
           <EntitySet Name="Plein" EntityType="Self.Plein" />
+          <EntitySet Name="Professionnel" EntityType="Self.Professionnel" />
           <EntitySet Name="TauxHoraire" EntityType="Self.TauxHoraire" />
           <EntitySet Name="Vehicule" EntityType="Self.Vehicule" />
           <EntitySet Name="VehiculeOccasion" EntityType="Self.VehiculeOccasion" />
-          <AssociationSet Name="FK_Client_Personne" Association="Self.FK_Client_Personne">
-            <End Role="Personne" EntitySet="Personne" />
-            <End Role="Client" EntitySet="Client" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Location_Client" Association="Self.FK_Location_Client">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="Location" EntitySet="Location" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Plein_Client" Association="Self.FK_Plein_Client">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="Plein" EntitySet="Plein" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Vehicule_Client" Association="Self.FK_Vehicule_Client">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="Vehicule" EntitySet="Vehicule" />
-          </AssociationSet>
           <AssociationSet Name="FK_Vehicule_ConstructeursVoiture" Association="Self.FK_Vehicule_ConstructeursVoiture">
             <End Role="ConstructeursVoiture" EntitySet="ConstructeursVoiture" />
             <End Role="Vehicule" EntitySet="Vehicule" />
           </AssociationSet>
-          <AssociationSet Name="FK_ContratAchat_Employe" Association="Self.FK_ContratAchat_Employe">
-            <End Role="Employe" EntitySet="Employe" />
+          <AssociationSet Name="FK_ContratAchat_Personne" Association="Self.FK_ContratAchat_Personne">
+            <End Role="Personne" EntitySet="Personne" />
             <End Role="ContratAchat" EntitySet="ContratAchat" />
           </AssociationSet>
           <AssociationSet Name="FK_ContratAchat_Vehicule" Association="Self.FK_ContratAchat_Vehicule">
             <End Role="Vehicule" EntitySet="Vehicule" />
             <End Role="ContratAchat" EntitySet="ContratAchat" />
           </AssociationSet>
-          <AssociationSet Name="FK_Employe_Personne" Association="Self.FK_Employe_Personne">
-            <End Role="Personne" EntitySet="Personne" />
-            <End Role="Employe" EntitySet="Employe" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Location_Employe" Association="Self.FK_Location_Employe">
-            <End Role="Employe" EntitySet="Employe" />
-            <End Role="Location" EntitySet="Location" />
-          </AssociationSet>
           <AssociationSet Name="FK_Operation_Facture" Association="Self.FK_Operation_Facture">
             <End Role="Facture" EntitySet="Facture" />
             <End Role="Operation" EntitySet="Operation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_Client" Association="Self.FK_Location_Client">
+            <End Role="Professionnel" EntitySet="Professionnel" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_Personne" Association="Self.FK_Location_Personne">
+            <End Role="Personne" EntitySet="Personne" />
+            <End Role="Location" EntitySet="Location" />
           </AssociationSet>
           <AssociationSet Name="FK_Location_Vehicule" Association="Self.FK_Location_Vehicule">
             <End Role="Vehicule" EntitySet="Vehicule" />
@@ -851,9 +803,21 @@
             <End Role="Operation" EntitySet="Operation" />
             <End Role="TauxHoraire" EntitySet="TauxHoraire" />
           </AssociationSet>
+          <AssociationSet Name="FK_Client_Personne" Association="Self.FK_Client_Personne">
+            <End Role="Personne" EntitySet="Personne" />
+            <End Role="Professionnel" EntitySet="Professionnel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Plein_Client" Association="Self.FK_Plein_Client">
+            <End Role="Professionnel" EntitySet="Professionnel" />
+            <End Role="Plein" EntitySet="Plein" />
+          </AssociationSet>
           <AssociationSet Name="FK_Plein_Vehicule" Association="Self.FK_Plein_Vehicule">
             <End Role="Vehicule" EntitySet="Vehicule" />
             <End Role="Plein" EntitySet="Plein" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vehicule_Client" Association="Self.FK_Vehicule_Client">
+            <End Role="Professionnel" EntitySet="Professionnel" />
+            <End Role="Vehicule" EntitySet="Vehicule" />
           </AssociationSet>
           <AssociationSet Name="FK_VehiculeOccasion_Vehicule" Association="Self.FK_VehiculeOccasion_Vehicule">
             <End Role="Vehicule" EntitySet="Vehicule" />
@@ -866,19 +830,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CarSalesModelStoreContainer" CdmEntityContainer="CarSalesEntities">
-          <EntitySetMapping Name="Client">
-            <EntityTypeMapping TypeName="CarSalesModel.Client">
-              <MappingFragment StoreEntitySet="Client">
-                <ScalarProperty Name="IdPersonne" ColumnName="IdPersonne" />
-                <ScalarProperty Name="TypeClient" ColumnName="TypeClient" />
-                <ScalarProperty Name="Siret" ColumnName="Siret" />
-                <ScalarProperty Name="NomEntreprise" ColumnName="NomEntreprise" />
-                <ScalarProperty Name="AdresseEntreprise" ColumnName="AdresseEntreprise" />
-                <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
-                <ScalarProperty Name="VilleEntreprise" ColumnName="VilleEntreprise" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ConstructeursVoiture">
             <EntityTypeMapping TypeName="CarSalesModel.ConstructeursVoiture">
               <MappingFragment StoreEntitySet="ConstructeursVoiture">
@@ -898,14 +849,6 @@
                 <ScalarProperty Name="IdEmploye" ColumnName="IdEmploye" />
                 <ScalarProperty Name="IdVehicule" ColumnName="IdVehicule" />
                 <ScalarProperty Name="DateContrat" ColumnName="DateContrat" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Employe">
-            <EntityTypeMapping TypeName="CarSalesModel.Employe">
-              <MappingFragment StoreEntitySet="Employe">
-                <ScalarProperty Name="IdPersonne" ColumnName="IdPersonne" />
-                <ScalarProperty Name="MotDePasse" ColumnName="MotDePasse" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -935,7 +878,7 @@
               <MappingFragment StoreEntitySet="Operation">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="IdFacture" ColumnName="IdFacture" />
-                <ScalarProperty Name="IdImmatriculation" ColumnName="IdImmatriculation" />
+                <ScalarProperty Name="IdVehicule" ColumnName="IdVehicule" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Duree" ColumnName="Duree" />
                 <ScalarProperty Name="DateOperation" ColumnName="DateOperation" />
@@ -946,6 +889,7 @@
             <EntityTypeMapping TypeName="CarSalesModel.Personne">
               <MappingFragment StoreEntitySet="Personne">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TypePersonne" ColumnName="TypePersonne" />
                 <ScalarProperty Name="Nom" ColumnName="Nom" />
                 <ScalarProperty Name="Prenom" ColumnName="Prenom" />
                 <ScalarProperty Name="Adresse1" ColumnName="Adresse1" />
@@ -954,6 +898,7 @@
                 <ScalarProperty Name="NumeroTelephone" ColumnName="NumeroTelephone" />
                 <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
                 <ScalarProperty Name="Ville" ColumnName="Ville" />
+                <ScalarProperty Name="MotDePasse" ColumnName="MotDePasse" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -972,11 +917,24 @@
               <MappingFragment StoreEntitySet="Plein">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="IdFournisseur" ColumnName="IdFournisseur" />
-                <ScalarProperty Name="IdImmatriculation" ColumnName="IdImmatriculation" />
+                <ScalarProperty Name="IdVehicule" ColumnName="IdVehicule" />
                 <ScalarProperty Name="DatePlein" ColumnName="DatePlein" />
                 <ScalarProperty Name="Volume" ColumnName="Volume" />
                 <ScalarProperty Name="PrixLitre" ColumnName="PrixLitre" />
                 <ScalarProperty Name="Kilometrage" ColumnName="Kilometrage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Professionnel">
+            <EntityTypeMapping TypeName="CarSalesModel.Professionnel">
+              <MappingFragment StoreEntitySet="Professionnel">
+                <ScalarProperty Name="IdPersonne" ColumnName="IdPersonne" />
+                <ScalarProperty Name="TypeClient" ColumnName="TypeClient" />
+                <ScalarProperty Name="Siret" ColumnName="Siret" />
+                <ScalarProperty Name="NomEntreprise" ColumnName="NomEntreprise" />
+                <ScalarProperty Name="AdresseEntreprise" ColumnName="AdresseEntreprise" />
+                <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
+                <ScalarProperty Name="VilleEntreprise" ColumnName="VilleEntreprise" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -986,7 +944,6 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="IdOperation" ColumnName="IdOperation" />
                 <ScalarProperty Name="Valeur" ColumnName="Valeur" />
-                <ScalarProperty Name="TauxActuel" ColumnName="TauxActuel" />
                 <ScalarProperty Name="DateModification" ColumnName="DateModification" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -994,6 +951,7 @@
           <EntitySetMapping Name="Vehicule">
             <EntityTypeMapping TypeName="CarSalesModel.Vehicule">
               <MappingFragment StoreEntitySet="Vehicule">
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Immatriculation" ColumnName="Immatriculation" />
                 <ScalarProperty Name="IdProprietaire" ColumnName="IdProprietaire" />
                 <ScalarProperty Name="Marque" ColumnName="Marque" />
@@ -1011,7 +969,7 @@
           <EntitySetMapping Name="VehiculeOccasion">
             <EntityTypeMapping TypeName="CarSalesModel.VehiculeOccasion">
               <MappingFragment StoreEntitySet="VehiculeOccasion">
-                <ScalarProperty Name="Immatriculation" ColumnName="Immatriculation" />
+                <ScalarProperty Name="IdVehicule" ColumnName="IdVehicule" />
                 <ScalarProperty Name="KilometrageAchat" ColumnName="KilometrageAchat" />
                 <ScalarProperty Name="KilometrageVente" ColumnName="KilometrageVente" />
               </MappingFragment>

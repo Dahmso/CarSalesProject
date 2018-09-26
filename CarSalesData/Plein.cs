@@ -16,13 +16,13 @@ namespace CarSalesData
     {
         public int Id { get; set; }
         public int IdFournisseur { get; set; }
-        public string IdImmatriculation { get; set; }
+        public int IdVehicule { get; set; }
         public System.DateTime DatePlein { get; set; }
         public decimal Volume { get; set; }
         public decimal PrixLitre { get; set; }
         public int Kilometrage { get; set; }
     
-        public virtual Client Client { get; set; }
+        public virtual Professionnel Professionnel { get; set; }
         public virtual Vehicule Vehicule { get; set; }
     }
 }

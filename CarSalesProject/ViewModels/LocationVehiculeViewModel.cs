@@ -16,11 +16,11 @@ namespace CarSalesProject.ViewModels
 
         [Required(ErrorMessage = "Le commercial doit être renseigné")]
         [Display(Name = "Commercial")]
-        public Employe Commercial { get; set; }
+        public Personne Commercial { get; set; }
 
         [Required(ErrorMessage = "Le client doit être renseigné")]
         [Display(Name = "Client")]
-        public Client Client { get; set; }
+        public Personne Client { get; set; }
 
         [Required(ErrorMessage = "Le contrat de location doit être complété")]
         [Display(Name = "Location")]

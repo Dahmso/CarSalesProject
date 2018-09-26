@@ -23,7 +23,7 @@ namespace CarSalesData
     
         public int Id { get; set; }
         public int IdFacture { get; set; }
-        public string IdImmatriculation { get; set; }
+        public int IdVehicule { get; set; }
         public string Description { get; set; }
         public decimal Duree { get; set; }
         public System.DateTime DateOperation { get; set; }

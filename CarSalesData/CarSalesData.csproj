@@ -65,16 +65,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CarSalesDataModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Client.cs">
-      <DependentUpon>CarSalesDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="ConstructeursVoiture.cs">
       <DependentUpon>CarSalesDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ContratAchat.cs">
-      <DependentUpon>CarSalesDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Employe.cs">
       <DependentUpon>CarSalesDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Facture.cs">
@@ -83,7 +77,6 @@
     <Compile Include="Helpers\ClientHelper.cs" />
     <Compile Include="Helpers\ConstructeursVoitureHelper.cs" />
     <Compile Include="Helpers\ContratAchatHelper.cs" />
-    <Compile Include="Helpers\EmployeHelper.cs" />
     <Compile Include="Helpers\FactureHelper.cs" />
     <Compile Include="Helpers\LocationHelper.cs" />
     <Compile Include="Helpers\OperationHelper.cs" />
@@ -107,6 +100,9 @@
       <DependentUpon>CarSalesDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Plein.cs">
+      <DependentUpon>CarSalesDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Professionnel.cs">
       <DependentUpon>CarSalesDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
