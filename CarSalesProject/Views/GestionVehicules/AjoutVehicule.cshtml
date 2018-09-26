@@ -9,68 +9,72 @@
     <h1>@ViewBag.Title</h1>
 </div>
 
-@using (Html.BeginForm("Valider", "AjoutVehicule", FormMethod.Post, new { id = "ajoutVehicule" }))
+@using (Html.BeginForm("ValiderAjtVehicule", "GestionVehicules", FormMethod.Post, new { id = "ajoutVehicule" }))
 {
+<div class="form-group">
     <div class="form-group">
-        <div class="form-group">
-            @Html.LabelFor(m => m.StatutsVehicule)
-            @Html.DropDownListFor(m => m.StatutsVehicule, Model.StatutsVehicule, new { id = "ddlStatutVehicule", onchange = "ShowHideTextBox(this)" })
-            @Html.ValidationMessageFor(m => m.StatutsVehicule)
+        @Html.LabelFor(m => m.StatutsVehicule)
+        @Html.DropDownListFor(m => m.Statut, Model.StatutsVehicule, new { id = "ddlStatutVehicule", onchange = "ShowHideTextBox(this)" })
+        @Html.ValidationMessageFor(m => m.StatutsVehicule)
 
-            @Html.LabelFor(m => m.Vehicule.Immatriculation)
-            @Html.TextBoxFor(m => m.Vehicule.Immatriculation)
-            @Html.ValidationMessageFor(m => m.Vehicule.Immatriculation)
+        @Html.LabelFor(m => m.Vehicule.Immatriculation)
+        @Html.TextBoxFor(m => m.Vehicule.Immatriculation)
+        @Html.ValidationMessageFor(m => m.Vehicule.Immatriculation)
 
-            @Html.LabelFor(m => m.CouleursVehicule)
-            @Html.DropDownListFor(m => m.Vehicule.Couleur, Model.CouleursVehicule)
-            @Html.ValidationMessageFor(m => m.CouleursVehicule)
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Marques)
-            @Html.DropDownListFor(m => m.Vehicule.Marque, Model.Marques.Select(marq => new SelectListItem
-            {
-                Value = marq.Nom,
-                Text = marq.Nom
-            }), new {@class = "form_control"})
-            @Html.ValidationMessageFor(m => m.Marques)
-
-            @Html.LabelFor(m => m.Vehicule.Modele)
-            @Html.TextBoxFor(m => m.Vehicule.Modele)
-            @Html.ValidationMessageFor(m => m.Vehicule.Modele)
-
-            @Html.LabelFor(m => m.Vehicule.Puissance)
-            @Html.TextBoxFor(m => m.Vehicule.Puissance)
-            @Html.ValidationMessageFor(m => m.Vehicule.Puissance)
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Vehicule.Kilometrage)
-            @Html.TextBoxFor(m => m.Vehicule.Kilometrage)
-            @Html.ValidationMessageFor(m => m.Vehicule.Kilometrage)
-
-            @Html.LabelFor(m => m.Vehicule.PrixAchat)
-            @Html.TextBoxFor(m => m.Vehicule.PrixAchat)
-            @Html.ValidationMessageFor(m => m.Vehicule.PrixAchat)
-
-            @Html.LabelFor(m => m.Vehicule.DateAchat)
-            @Html.EditorFor(m => m.Vehicule.DateAchat, new { @type = "date", @min = "2017-04-01", @max = "2017-04-30" })
-            @Html.ValidationMessageFor(m => m.Vehicule.DateAchat)
-
-            @Html.LabelFor(m => m.Vehicule.DateVente)
-            @Html.EditorFor(m => m.Vehicule.DateVente, new { @type = "date", @value = DateTime.Now.ToString("DD-MM-YYYY"), @min = "01-01-1900", @max = "01-01-2500" })
-            @Html.ValidationMessageFor(m => m.Vehicule.DateVente)
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.VehiculeOccasion.KilometrageAchat, new { id = "lblOccasionKmAchat" })
-            @Html.TextBoxFor(m => m.VehiculeOccasion.KilometrageAchat, new { id = "tbxOccasionKmAchat" })
-            @Html.ValidationMessageFor(m => m.VehiculeOccasion.KilometrageAchat)
-
-            @Html.LabelFor(m => m.VehiculeOccasion.KilometrageVente, new { id = "lblOccasionKmVente" })
-            @Html.TextBoxFor(m => m.VehiculeOccasion.KilometrageVente, new { id = "tbxOccasionKmVente" })
-            @Html.ValidationMessageFor(m => m.VehiculeOccasion.KilometrageVente)
-        </div>
+        @Html.LabelFor(m => m.CouleursVehicule)
+        @Html.DropDownListFor(m => m.Vehicule.Couleur, Model.CouleursVehicule)
+        @Html.ValidationMessageFor(m => m.CouleursVehicule)
     </div>
-    <button type="submit" class="btn btn-default">Valider</button>
-    <input type="submit" asp-page-handler="Retour" formaction="@Url.Action("Retour")" value="Retour" />
+    <div class="form-group">
+        @Html.LabelFor(m => m.Marques)
+        @Html.DropDownListFor(m => m.Vehicule.Marque, Model.Marques.Select(marq => new SelectListItem
+        {
+            Value = marq.Nom,
+            Text = marq.Nom
+        }), new {@class = "form_control"})
+        @Html.ValidationMessageFor(m => m.Marques)
+
+        @Html.LabelFor(m => m.Vehicule.Modele)
+        @Html.TextBoxFor(m => m.Vehicule.Modele)
+        @Html.ValidationMessageFor(m => m.Vehicule.Modele)
+
+        @Html.LabelFor(m => m.Vehicule.Puissance)
+        @Html.TextBoxFor(m => m.Vehicule.Puissance)
+        @Html.ValidationMessageFor(m => m.Vehicule.Puissance)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Vehicule.Kilometrage)
+        @Html.TextBoxFor(m => m.Vehicule.Kilometrage)
+        @Html.ValidationMessageFor(m => m.Vehicule.Kilometrage)
+
+        @Html.LabelFor(m => m.Vehicule.PrixAchat)
+        @Html.TextBoxFor(m => m.Vehicule.PrixAchat)
+        @Html.ValidationMessageFor(m => m.Vehicule.PrixAchat)
+
+        @Html.LabelFor(m => m.Vehicule.DateAchat)
+        @Html.TextBoxFor(m => m.Vehicule.DateAchat, new { @type = "date", @min = "2017-04-01", @max = "2017-04-30" })
+        @Html.ValidationMessageFor(m => m.Vehicule.DateAchat)
+
+        @Html.LabelFor(m => m.Vehicule.DateVente)
+        @Html.TextBoxFor(m => m.Vehicule.DateVente, new { @type = "date", @value = DateTime.Now.ToString("DD-MM-YYYY"), @min = "01-01-1900", @max = "01-01-2500" })
+        @Html.ValidationMessageFor(m => m.Vehicule.DateVente)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.VehiculeOccasion.KilometrageAchat, new { id = "lblOccasionKmAchat" })
+        @Html.TextBoxFor(m => m.VehiculeOccasion.KilometrageAchat, new { id = "tbxOccasionKmAchat" })
+        @Html.ValidationMessageFor(m => m.VehiculeOccasion.KilometrageAchat)
+
+        @Html.LabelFor(m => m.VehiculeOccasion.KilometrageVente, new { id = "lblOccasionKmVente" })
+        @Html.TextBoxFor(m => m.VehiculeOccasion.KilometrageVente, new { id = "tbxOccasionKmVente" })
+        @Html.ValidationMessageFor(m => m.VehiculeOccasion.KilometrageVente)
+    </div>
+</div>
+<input type="submit" value="Valider" />
+}
+
+@using (Html.BeginForm("RetourAjtVehicule", "GestionVehicules", FormMethod.Post, new { id = "retourAjtVehicule" }))
+{
+<input type="submit" value="Retour" />
 }
 
 <script type="text/javascript">
