@@ -22,8 +22,8 @@ namespace CarSalesData
         public decimal PrixLocation { get; set; }
         public int Duree { get; set; }
     
-        public virtual Professionnel Professionnel { get; set; }
         public virtual Personne Personne { get; set; }
+        public virtual Personne Personne1 { get; set; }
         public virtual Vehicule Vehicule { get; set; }
     }
 }

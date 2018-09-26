@@ -18,7 +18,10 @@ namespace CarSalesData
         public Personne()
         {
             this.ContratAchat = new HashSet<ContratAchat>();
+            this.ContratAchat1 = new HashSet<ContratAchat>();
             this.Location = new HashSet<Location>();
+            this.Location1 = new HashSet<Location>();
+            this.Vehicule = new HashSet<Vehicule>();
         }
     
         public int Id { get; set; }
@@ -36,7 +39,13 @@ namespace CarSalesData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ContratAchat> ContratAchat { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ContratAchat> ContratAchat1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Location> Location { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Location> Location1 { get; set; }
         public virtual Professionnel Professionnel { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Vehicule> Vehicule { get; set; }
     }
 }

@@ -8,8 +8,10 @@
 *.user
 *.userosscache
 *.sln.docstates
-*.CarSalesData/App.config
-*.CarSalesProject/Web.config
+*CarSalesData/App.config
+*CarSalesProject/Web.config
+App.config
+Web.config
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

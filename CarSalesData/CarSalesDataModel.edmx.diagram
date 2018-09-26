@@ -4,33 +4,34 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5bc6cc42820441edaec2f32ac51015f5" Name="Diagram1">
-        <EntityTypeShape EntityType="CarSalesModel.ConstructeursVoiture" Width="1.5" PointX="6" PointY="20.75" IsExpanded="true" />
+      <Diagram DiagramId="d25fb49542074701b903fc71a86c214c" Name="Diagram1">
+        <EntityTypeShape EntityType="CarSalesModel.ConstructeursVoiture" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CarSalesModel.ContratAchat" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarSalesModel.Facture" Width="1.5" PointX="8.25" PointY="12.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarSalesModel.Location" Width="1.5" PointX="5.25" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarSalesModel.Operation" Width="1.5" PointX="10.5" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarSalesModel.Facture" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarSalesModel.Location" Width="1.5" PointX="6" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarSalesModel.Operation" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CarSalesModel.Personne" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarSalesModel.Piece" Width="1.5" PointX="12.75" PointY="14.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarSalesModel.Plein" Width="1.5" PointX="5.25" PointY="16.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarSalesModel.Professionnel" Width="1.5" PointX="3" PointY="15.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarSalesModel.TauxHoraire" Width="1.5" PointX="12.75" PointY="17.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarSalesModel.Vehicule" Width="1.5" PointX="8.25" PointY="14.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CarSalesModel.VehiculeOccasion" Width="1.5" PointX="10.5" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarSalesModel.Piece" Width="1.5" PointX="7.5" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarSalesModel.Plein" Width="1.5" PointX="5.25" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarSalesModel.Professionnel" Width="1.5" PointX="3" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarSalesModel.TauxHoraire" Width="1.5" PointX="7.5" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarSalesModel.Vehicule" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CarSalesModel.VehiculeOccasion" Width="1.5" PointX="5.25" PointY="13.125" IsExpanded="true" />
         <AssociationConnector Association="CarSalesModel.FK_Vehicule_ConstructeursVoiture" ManuallyRouted="false" />
-        <AssociationConnector Association="CarSalesModel.FK_ContratAchat_Personne" ManuallyRouted="false" />
+        <AssociationConnector Association="CarSalesModel.FK_ContratAchat_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="CarSalesModel.FK_ContratAchat_Commercial" ManuallyRouted="false" />
         <AssociationConnector Association="CarSalesModel.FK_ContratAchat_Vehicule" ManuallyRouted="false" />
         <AssociationConnector Association="CarSalesModel.FK_Operation_Facture" ManuallyRouted="false" />
         <AssociationConnector Association="CarSalesModel.FK_Location_Client" ManuallyRouted="false" />
-        <AssociationConnector Association="CarSalesModel.FK_Location_Personne" ManuallyRouted="false" />
+        <AssociationConnector Association="CarSalesModel.FK_Location_Employe" ManuallyRouted="false" />
         <AssociationConnector Association="CarSalesModel.FK_Location_Vehicule" ManuallyRouted="false" />
         <AssociationConnector Association="CarSalesModel.FK_Operation_Vehicule" ManuallyRouted="false" />
         <AssociationConnector Association="CarSalesModel.FK_Piece_Operation" ManuallyRouted="false" />
         <AssociationConnector Association="CarSalesModel.FK_TauxHoraire_Operation" ManuallyRouted="false" />
         <AssociationConnector Association="CarSalesModel.FK_Client_Personne" ManuallyRouted="false" />
+        <AssociationConnector Association="CarSalesModel.FK_Vehicule_Proprietaire" ManuallyRouted="false" />
         <AssociationConnector Association="CarSalesModel.FK_Plein_Client" ManuallyRouted="false" />
         <AssociationConnector Association="CarSalesModel.FK_Plein_Vehicule" ManuallyRouted="false" />
-        <AssociationConnector Association="CarSalesModel.FK_Vehicule_Client" ManuallyRouted="false" />
         <AssociationConnector Association="CarSalesModel.FK_VehiculeOccasion_Vehicule" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

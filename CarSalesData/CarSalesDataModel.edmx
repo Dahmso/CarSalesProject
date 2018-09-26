@@ -21,6 +21,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdClient" Type="int" Nullable="false" />
           <Property Name="IdEmploye" Type="int" Nullable="false" />
           <Property Name="IdVehicule" Type="int" Nullable="false" />
           <Property Name="DateContrat" Type="datetime" Nullable="false" />
@@ -153,7 +154,19 @@ avertissement 6002: La table/vue 'CarSales.dbo.VehiculeOccasion' n'a pas de clé
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ContratAchat_Personne">
+        <Association Name="FK_ContratAchat_Client">
+          <End Role="Personne" Type="Self.Personne" Multiplicity="1" />
+          <End Role="ContratAchat" Type="Self.ContratAchat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personne">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ContratAchat">
+              <PropertyRef Name="IdClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContratAchat_Commercial">
           <End Role="Personne" Type="Self.Personne" Multiplicity="1" />
           <End Role="ContratAchat" Type="Self.ContratAchat" Multiplicity="*" />
           <ReferentialConstraint>
@@ -178,18 +191,18 @@ avertissement 6002: La table/vue 'CarSales.dbo.VehiculeOccasion' n'a pas de clé
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Location_Client">
-          <End Role="Professionnel" Type="Self.Professionnel" Multiplicity="1" />
+          <End Role="Personne" Type="Self.Personne" Multiplicity="1" />
           <End Role="Location" Type="Self.Location" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Professionnel">
-              <PropertyRef Name="IdPersonne" />
+            <Principal Role="Personne">
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Location">
               <PropertyRef Name="IdClient" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Location_Personne">
+        <Association Name="FK_Location_Employe">
           <End Role="Personne" Type="Self.Personne" Multiplicity="1" />
           <End Role="Location" Type="Self.Location" Multiplicity="*" />
           <ReferentialConstraint>
@@ -285,18 +298,6 @@ avertissement 6002: La table/vue 'CarSales.dbo.VehiculeOccasion' n'a pas de clé
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Vehicule_Client">
-          <End Role="Professionnel" Type="Self.Professionnel" Multiplicity="0..1" />
-          <End Role="Vehicule" Type="Self.Vehicule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Professionnel">
-              <PropertyRef Name="IdPersonne" />
-            </Principal>
-            <Dependent Role="Vehicule">
-              <PropertyRef Name="IdProprietaire" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Vehicule_ConstructeursVoiture">
           <End Role="ConstructeursVoiture" Type="Self.ConstructeursVoiture" Multiplicity="1" />
           <End Role="Vehicule" Type="Self.Vehicule" Multiplicity="*" />
@@ -306,6 +307,18 @@ avertissement 6002: La table/vue 'CarSales.dbo.VehiculeOccasion' n'a pas de clé
             </Principal>
             <Dependent Role="Vehicule">
               <PropertyRef Name="Marque" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vehicule_Proprietaire">
+          <End Role="Personne" Type="Self.Personne" Multiplicity="0..1" />
+          <End Role="Vehicule" Type="Self.Vehicule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personne">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Vehicule">
+              <PropertyRef Name="IdProprietaire" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -344,7 +357,11 @@ avertissement 6002: La table/vue 'CarSales.dbo.VehiculeOccasion' n'a pas de clé
             <End Role="Personne" EntitySet="Personne" />
             <End Role="Professionnel" EntitySet="Professionnel" />
           </AssociationSet>
-          <AssociationSet Name="FK_ContratAchat_Personne" Association="Self.FK_ContratAchat_Personne">
+          <AssociationSet Name="FK_ContratAchat_Client" Association="Self.FK_ContratAchat_Client">
+            <End Role="Personne" EntitySet="Personne" />
+            <End Role="ContratAchat" EntitySet="ContratAchat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContratAchat_Commercial" Association="Self.FK_ContratAchat_Commercial">
             <End Role="Personne" EntitySet="Personne" />
             <End Role="ContratAchat" EntitySet="ContratAchat" />
           </AssociationSet>
@@ -353,10 +370,10 @@ avertissement 6002: La table/vue 'CarSales.dbo.VehiculeOccasion' n'a pas de clé
             <End Role="ContratAchat" EntitySet="ContratAchat" />
           </AssociationSet>
           <AssociationSet Name="FK_Location_Client" Association="Self.FK_Location_Client">
-            <End Role="Professionnel" EntitySet="Professionnel" />
+            <End Role="Personne" EntitySet="Personne" />
             <End Role="Location" EntitySet="Location" />
           </AssociationSet>
-          <AssociationSet Name="FK_Location_Personne" Association="Self.FK_Location_Personne">
+          <AssociationSet Name="FK_Location_Employe" Association="Self.FK_Location_Employe">
             <End Role="Personne" EntitySet="Personne" />
             <End Role="Location" EntitySet="Location" />
           </AssociationSet>
@@ -388,12 +405,12 @@ avertissement 6002: La table/vue 'CarSales.dbo.VehiculeOccasion' n'a pas de clé
             <End Role="Operation" EntitySet="Operation" />
             <End Role="TauxHoraire" EntitySet="TauxHoraire" />
           </AssociationSet>
-          <AssociationSet Name="FK_Vehicule_Client" Association="Self.FK_Vehicule_Client">
-            <End Role="Professionnel" EntitySet="Professionnel" />
-            <End Role="Vehicule" EntitySet="Vehicule" />
-          </AssociationSet>
           <AssociationSet Name="FK_Vehicule_ConstructeursVoiture" Association="Self.FK_Vehicule_ConstructeursVoiture">
             <End Role="ConstructeursVoiture" EntitySet="ConstructeursVoiture" />
+            <End Role="Vehicule" EntitySet="Vehicule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vehicule_Proprietaire" Association="Self.FK_Vehicule_Proprietaire">
+            <End Role="Personne" EntitySet="Personne" />
             <End Role="Vehicule" EntitySet="Vehicule" />
           </AssociationSet>
           <AssociationSet Name="FK_VehiculeOccasion_Vehicule" Association="Self.FK_VehiculeOccasion_Vehicule">
@@ -423,10 +440,12 @@ avertissement 6002: La table/vue 'CarSales.dbo.VehiculeOccasion' n'a pas de clé
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdClient" Type="Int32" Nullable="false" />
           <Property Name="IdEmploye" Type="Int32" Nullable="false" />
           <Property Name="IdVehicule" Type="Int32" Nullable="false" />
           <Property Name="DateContrat" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Personne" Relationship="Self.FK_ContratAchat_Personne" FromRole="ContratAchat" ToRole="Personne" />
+          <NavigationProperty Name="Personne" Relationship="Self.FK_ContratAchat_Client" FromRole="ContratAchat" ToRole="Personne" />
+          <NavigationProperty Name="Personne1" Relationship="Self.FK_ContratAchat_Commercial" FromRole="ContratAchat" ToRole="Personne" />
           <NavigationProperty Name="Vehicule" Relationship="Self.FK_ContratAchat_Vehicule" FromRole="ContratAchat" ToRole="Vehicule" />
         </EntityType>
         <EntityType Name="Facture">
@@ -448,8 +467,8 @@ avertissement 6002: La table/vue 'CarSales.dbo.VehiculeOccasion' n'a pas de clé
           <Property Name="DateDebut" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PrixLocation" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Duree" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Professionnel" Relationship="Self.FK_Location_Client" FromRole="Location" ToRole="Professionnel" />
-          <NavigationProperty Name="Personne" Relationship="Self.FK_Location_Personne" FromRole="Location" ToRole="Personne" />
+          <NavigationProperty Name="Personne" Relationship="Self.FK_Location_Client" FromRole="Location" ToRole="Personne" />
+          <NavigationProperty Name="Personne1" Relationship="Self.FK_Location_Employe" FromRole="Location" ToRole="Personne" />
           <NavigationProperty Name="Vehicule" Relationship="Self.FK_Location_Vehicule" FromRole="Location" ToRole="Vehicule" />
         </EntityType>
         <EntityType Name="Operation">
@@ -482,9 +501,12 @@ avertissement 6002: La table/vue 'CarSales.dbo.VehiculeOccasion' n'a pas de clé
           <Property Name="CodePostal" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Ville" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="MotDePasse" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ContratAchat" Relationship="Self.FK_ContratAchat_Personne" FromRole="Personne" ToRole="ContratAchat" />
-          <NavigationProperty Name="Location" Relationship="Self.FK_Location_Personne" FromRole="Personne" ToRole="Location" />
+          <NavigationProperty Name="ContratAchat" Relationship="Self.FK_ContratAchat_Client" FromRole="Personne" ToRole="ContratAchat" />
+          <NavigationProperty Name="ContratAchat1" Relationship="Self.FK_ContratAchat_Commercial" FromRole="Personne" ToRole="ContratAchat" />
+          <NavigationProperty Name="Location" Relationship="Self.FK_Location_Client" FromRole="Personne" ToRole="Location" />
+          <NavigationProperty Name="Location1" Relationship="Self.FK_Location_Employe" FromRole="Personne" ToRole="Location" />
           <NavigationProperty Name="Professionnel" Relationship="Self.FK_Client_Personne" FromRole="Personne" ToRole="Professionnel" />
+          <NavigationProperty Name="Vehicule" Relationship="Self.FK_Vehicule_Proprietaire" FromRole="Personne" ToRole="Vehicule" />
         </EntityType>
         <EntityType Name="Piece">
           <Key>
@@ -521,10 +543,8 @@ avertissement 6002: La table/vue 'CarSales.dbo.VehiculeOccasion' n'a pas de clé
           <Property Name="AdresseEntreprise" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CodePostal" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="VilleEntreprise" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Location" Relationship="Self.FK_Location_Client" FromRole="Professionnel" ToRole="Location" />
           <NavigationProperty Name="Personne" Relationship="Self.FK_Client_Personne" FromRole="Professionnel" ToRole="Personne" />
           <NavigationProperty Name="Plein" Relationship="Self.FK_Plein_Client" FromRole="Professionnel" ToRole="Plein" />
-          <NavigationProperty Name="Vehicule" Relationship="Self.FK_Vehicule_Client" FromRole="Professionnel" ToRole="Vehicule" />
         </EntityType>
         <EntityType Name="TauxHoraire">
           <Key>
@@ -556,8 +576,8 @@ avertissement 6002: La table/vue 'CarSales.dbo.VehiculeOccasion' n'a pas de clé
           <NavigationProperty Name="ContratAchat" Relationship="Self.FK_ContratAchat_Vehicule" FromRole="Vehicule" ToRole="ContratAchat" />
           <NavigationProperty Name="Location" Relationship="Self.FK_Location_Vehicule" FromRole="Vehicule" ToRole="Location" />
           <NavigationProperty Name="Operation" Relationship="Self.FK_Operation_Vehicule" FromRole="Vehicule" ToRole="Operation" />
+          <NavigationProperty Name="Personne" Relationship="Self.FK_Vehicule_Proprietaire" FromRole="Vehicule" ToRole="Personne" />
           <NavigationProperty Name="Plein" Relationship="Self.FK_Plein_Vehicule" FromRole="Vehicule" ToRole="Plein" />
-          <NavigationProperty Name="Professionnel" Relationship="Self.FK_Vehicule_Client" FromRole="Vehicule" ToRole="Professionnel" />
           <NavigationProperty Name="VehiculeOccasion" Relationship="Self.FK_VehiculeOccasion_Vehicule" FromRole="Vehicule" ToRole="VehiculeOccasion" />
         </EntityType>
         <EntityType Name="VehiculeOccasion">
@@ -582,7 +602,19 @@ avertissement 6002: La table/vue 'CarSales.dbo.VehiculeOccasion' n'a pas de clé
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ContratAchat_Personne">
+        <Association Name="FK_ContratAchat_Client">
+          <End Role="Personne" Type="Self.Personne" Multiplicity="1" />
+          <End Role="ContratAchat" Type="Self.ContratAchat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personne">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ContratAchat">
+              <PropertyRef Name="IdClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContratAchat_Commercial">
           <End Role="Personne" Type="Self.Personne" Multiplicity="1" />
           <End Role="ContratAchat" Type="Self.ContratAchat" Multiplicity="*" />
           <ReferentialConstraint>
@@ -619,18 +651,18 @@ avertissement 6002: La table/vue 'CarSales.dbo.VehiculeOccasion' n'a pas de clé
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Location_Client">
-          <End Role="Professionnel" Type="Self.Professionnel" Multiplicity="1" />
+          <End Role="Personne" Type="Self.Personne" Multiplicity="1" />
           <End Role="Location" Type="Self.Location" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Professionnel">
-              <PropertyRef Name="IdPersonne" />
+            <Principal Role="Personne">
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Location">
               <PropertyRef Name="IdClient" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Location_Personne">
+        <Association Name="FK_Location_Employe">
           <End Role="Personne" Type="Self.Personne" Multiplicity="1" />
           <End Role="Location" Type="Self.Location" Multiplicity="*" />
           <ReferentialConstraint>
@@ -702,6 +734,18 @@ avertissement 6002: La table/vue 'CarSales.dbo.VehiculeOccasion' n'a pas de clé
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Vehicule_Proprietaire">
+          <End Role="Personne" Type="Self.Personne" Multiplicity="0..1" />
+          <End Role="Vehicule" Type="Self.Vehicule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personne">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Vehicule">
+              <PropertyRef Name="IdProprietaire" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Plein_Client">
           <End Role="Professionnel" Type="Self.Professionnel" Multiplicity="1" />
           <End Role="Plein" Type="Self.Plein" Multiplicity="*" />
@@ -723,18 +767,6 @@ avertissement 6002: La table/vue 'CarSales.dbo.VehiculeOccasion' n'a pas de clé
             </Principal>
             <Dependent Role="Plein">
               <PropertyRef Name="IdVehicule" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Vehicule_Client">
-          <End Role="Professionnel" Type="Self.Professionnel" Multiplicity="0..1" />
-          <End Role="Vehicule" Type="Self.Vehicule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Professionnel">
-              <PropertyRef Name="IdPersonne" />
-            </Principal>
-            <Dependent Role="Vehicule">
-              <PropertyRef Name="IdProprietaire" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -767,7 +799,11 @@ avertissement 6002: La table/vue 'CarSales.dbo.VehiculeOccasion' n'a pas de clé
             <End Role="ConstructeursVoiture" EntitySet="ConstructeursVoiture" />
             <End Role="Vehicule" EntitySet="Vehicule" />
           </AssociationSet>
-          <AssociationSet Name="FK_ContratAchat_Personne" Association="Self.FK_ContratAchat_Personne">
+          <AssociationSet Name="FK_ContratAchat_Client" Association="Self.FK_ContratAchat_Client">
+            <End Role="Personne" EntitySet="Personne" />
+            <End Role="ContratAchat" EntitySet="ContratAchat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContratAchat_Commercial" Association="Self.FK_ContratAchat_Commercial">
             <End Role="Personne" EntitySet="Personne" />
             <End Role="ContratAchat" EntitySet="ContratAchat" />
           </AssociationSet>
@@ -780,10 +816,10 @@ avertissement 6002: La table/vue 'CarSales.dbo.VehiculeOccasion' n'a pas de clé
             <End Role="Operation" EntitySet="Operation" />
           </AssociationSet>
           <AssociationSet Name="FK_Location_Client" Association="Self.FK_Location_Client">
-            <End Role="Professionnel" EntitySet="Professionnel" />
+            <End Role="Personne" EntitySet="Personne" />
             <End Role="Location" EntitySet="Location" />
           </AssociationSet>
-          <AssociationSet Name="FK_Location_Personne" Association="Self.FK_Location_Personne">
+          <AssociationSet Name="FK_Location_Employe" Association="Self.FK_Location_Employe">
             <End Role="Personne" EntitySet="Personne" />
             <End Role="Location" EntitySet="Location" />
           </AssociationSet>
@@ -807,6 +843,10 @@ avertissement 6002: La table/vue 'CarSales.dbo.VehiculeOccasion' n'a pas de clé
             <End Role="Personne" EntitySet="Personne" />
             <End Role="Professionnel" EntitySet="Professionnel" />
           </AssociationSet>
+          <AssociationSet Name="FK_Vehicule_Proprietaire" Association="Self.FK_Vehicule_Proprietaire">
+            <End Role="Personne" EntitySet="Personne" />
+            <End Role="Vehicule" EntitySet="Vehicule" />
+          </AssociationSet>
           <AssociationSet Name="FK_Plein_Client" Association="Self.FK_Plein_Client">
             <End Role="Professionnel" EntitySet="Professionnel" />
             <End Role="Plein" EntitySet="Plein" />
@@ -814,10 +854,6 @@ avertissement 6002: La table/vue 'CarSales.dbo.VehiculeOccasion' n'a pas de clé
           <AssociationSet Name="FK_Plein_Vehicule" Association="Self.FK_Plein_Vehicule">
             <End Role="Vehicule" EntitySet="Vehicule" />
             <End Role="Plein" EntitySet="Plein" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Vehicule_Client" Association="Self.FK_Vehicule_Client">
-            <End Role="Professionnel" EntitySet="Professionnel" />
-            <End Role="Vehicule" EntitySet="Vehicule" />
           </AssociationSet>
           <AssociationSet Name="FK_VehiculeOccasion_Vehicule" Association="Self.FK_VehiculeOccasion_Vehicule">
             <End Role="Vehicule" EntitySet="Vehicule" />
@@ -846,6 +882,7 @@ avertissement 6002: La table/vue 'CarSales.dbo.VehiculeOccasion' n'a pas de clé
             <EntityTypeMapping TypeName="CarSalesModel.ContratAchat">
               <MappingFragment StoreEntitySet="ContratAchat">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdClient" ColumnName="IdClient" />
                 <ScalarProperty Name="IdEmploye" ColumnName="IdEmploye" />
                 <ScalarProperty Name="IdVehicule" ColumnName="IdVehicule" />
                 <ScalarProperty Name="DateContrat" ColumnName="DateContrat" />

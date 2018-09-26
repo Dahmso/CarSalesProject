@@ -17,9 +17,7 @@ namespace CarSalesData
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Professionnel()
         {
-            this.Location = new HashSet<Location>();
             this.Plein = new HashSet<Plein>();
-            this.Vehicule = new HashSet<Vehicule>();
         }
     
         public int IdPersonne { get; set; }
@@ -30,12 +28,8 @@ namespace CarSalesData
         public string CodePostal { get; set; }
         public string VilleEntreprise { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Location> Location { get; set; }
         public virtual Personne Personne { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Plein> Plein { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Vehicule> Vehicule { get; set; }
     }
 }

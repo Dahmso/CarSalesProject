@@ -15,11 +15,13 @@ namespace CarSalesData
     public partial class ContratAchat
     {
         public int Id { get; set; }
+        public int IdClient { get; set; }
         public int IdEmploye { get; set; }
         public int IdVehicule { get; set; }
         public System.DateTime DateContrat { get; set; }
     
         public virtual Personne Personne { get; set; }
+        public virtual Personne Personne1 { get; set; }
         public virtual Vehicule Vehicule { get; set; }
     }
 }
