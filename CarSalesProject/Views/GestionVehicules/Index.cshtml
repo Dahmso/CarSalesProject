@@ -7,32 +7,37 @@
 <div class="jumbotron">
     <h1>Gestion des véhicules</h1>
 </div>
-
-@using (Html.BeginForm("Ajouter", "GestionVehicules", FormMethod.Post))
+@using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(m => m.StatutsVehicule)
-            @Html.DropDownListFor(m => m.StatutsVehicule, Model.StatutsVehicule, new { @class = "form_control" })
-            @Html.ValidationMessageFor(m => m.StatutsVehicule)
+@Html.AntiForgeryToken()
 
-            @Html.LabelFor(m => m.Vehicules)
-            @Html.DropDownListFor(m => m.vehicule.Immatriculation, Model.Vehicules.Select(v => new SelectListItem
-       {
-           Value = v.Immatriculation.ToString(),
-           Text = v.Immatriculation.ToString()
-       }), new {@class = "form_control"})
-            @Html.ValidationMessageFor(m => m.Vehicules)
-        </div>
-        <div class="form-group">
-            <input type="submit" asp-page-handler="Ajouter" formaction="@Url.Action("Ajouter")" value="Ajouter" />
-            <input type="submit" asp-page-handler="Transferer" formaction="@Url.Action("Transferer")" value="Transferer" />
-            <input type="submit" asp-page-handler="Modifier" formaction="@Url.Action("Modifier")" value="Modifier" />
-            <input type="submit" asp-page-handler="Supprimer" formaction="@Url.Action("Supprimer")" value="Supprimer" />
-        </div>
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="form-group">
+    @Html.LabelFor(m => m.StatutsVehicule)
+    @Html.DropDownListFor(m => m.StatutsVehicule, Model.StatutsVehicule, new { @class = "form_control" })
+    @Html.ValidationMessageFor(m => m.StatutsVehicule)
 
-        <input type="submit" asp-page-handler="Retour" formaction="@Url.Action("Retour")" value="Retour" />
-    </div>
+    @Html.LabelFor(m => m.Vehicules)
+    @Html.DropDownListFor(m => m.vehicule.Immatriculation,
+        Model.Vehicules.Select(v => new SelectListItem
+        {
+            Value = v.Id.ToString(),
+            Text = v.Id.ToString() + " " + v.Immatriculation.ToString()
+        }),
+        new {@class = "form_control"})
+    @Html.ValidationMessageFor(m => m.Vehicules)
+</div>
+<div class="form-group">
+    <input type="submit" formaction="@(Url.Action("Ajouter"))" value="Ajouter" />
+    <input type="submit" formaction="@(Url.Action("Transferer"))" value="Transferer" />
+    <input type="submit" formaction="@(Url.Action("Modifier"))" value="Modifier" />
+    <input type="submit" formaction="@(Url.Action("Supprimer"))" value="Supprimer" />
+</div>
 }
+
+<div class="form-group">
+    @using (Html.BeginForm("Retour", "GestionVehicules", FormMethod.Post, new { id = "retourGestionVehicules" }))
+    {
+    <input type="submit" value="Retour" />
+    }
+</div>
