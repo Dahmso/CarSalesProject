@@ -21,7 +21,6 @@ namespace CarSalesData
         }
     
         public int IdPersonne { get; set; }
-        public int TypeClient { get; set; }
         public string Siret { get; set; }
         public string NomEntreprise { get; set; }
         public string AdresseEntreprise { get; set; }

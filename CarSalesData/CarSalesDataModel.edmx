@@ -98,7 +98,6 @@
             <PropertyRef Name="IdPersonne" />
           </Key>
           <Property Name="IdPersonne" Type="int" Nullable="false" />
-          <Property Name="TypeClient" Type="int" Nullable="false" />
           <Property Name="Siret" Type="varchar" MaxLength="100" />
           <Property Name="NomEntreprise" Type="varchar" MaxLength="100" />
           <Property Name="AdresseEntreprise" Type="varchar" MaxLength="100" />
@@ -537,7 +536,6 @@ avertissement 6002: La table/vue 'CarSales.dbo.VehiculeOccasion' n'a pas de clé
             <PropertyRef Name="IdPersonne" />
           </Key>
           <Property Name="IdPersonne" Type="Int32" Nullable="false" />
-          <Property Name="TypeClient" Type="Int32" Nullable="false" />
           <Property Name="Siret" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="NomEntreprise" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="AdresseEntreprise" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -966,7 +964,6 @@ avertissement 6002: La table/vue 'CarSales.dbo.VehiculeOccasion' n'a pas de clé
             <EntityTypeMapping TypeName="CarSalesModel.Professionnel">
               <MappingFragment StoreEntitySet="Professionnel">
                 <ScalarProperty Name="IdPersonne" ColumnName="IdPersonne" />
-                <ScalarProperty Name="TypeClient" ColumnName="TypeClient" />
                 <ScalarProperty Name="Siret" ColumnName="Siret" />
                 <ScalarProperty Name="NomEntreprise" ColumnName="NomEntreprise" />
                 <ScalarProperty Name="AdresseEntreprise" ColumnName="AdresseEntreprise" />

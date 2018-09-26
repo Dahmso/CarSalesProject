@@ -1,0 +1,439 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CarSalesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ConstructeursVoiture">
+    <Key>
+      <PropertyRef Name="Nom" />
+    </Key>
+    <Property Name="Nom" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Adresse1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Adresse2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Zip" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Ville" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Pays" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Vehicule" Relationship="Self.FK_Vehicule_ConstructeursVoiture" FromRole="ConstructeursVoiture" ToRole="Vehicule" />
+  </EntityType>
+  <EntityType Name="ContratAchat">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdClient" Type="Int32" Nullable="false" />
+    <Property Name="IdEmploye" Type="Int32" Nullable="false" />
+    <Property Name="IdVehicule" Type="Int32" Nullable="false" />
+    <Property Name="DateContrat" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Personne" Relationship="Self.FK_ContratAchat_Client" FromRole="ContratAchat" ToRole="Personne" />
+    <NavigationProperty Name="Personne1" Relationship="Self.FK_ContratAchat_Commercial" FromRole="ContratAchat" ToRole="Personne" />
+    <NavigationProperty Name="Vehicule" Relationship="Self.FK_ContratAchat_Vehicule" FromRole="ContratAchat" ToRole="Vehicule" />
+  </EntityType>
+  <EntityType Name="Facture">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DateFacturation" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Operation" Relationship="Self.FK_Operation_Facture" FromRole="Facture" ToRole="Operation" />
+  </EntityType>
+  <EntityType Name="Location">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdClient" Type="Int32" Nullable="false" />
+    <Property Name="IdEmploye" Type="Int32" Nullable="false" />
+    <Property Name="IdVehicule" Type="Int32" Nullable="false" />
+    <Property Name="DateDebut" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PrixLocation" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Duree" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Personne" Relationship="Self.FK_Location_Client" FromRole="Location" ToRole="Personne" />
+    <NavigationProperty Name="Personne1" Relationship="Self.FK_Location_Employe" FromRole="Location" ToRole="Personne" />
+    <NavigationProperty Name="Vehicule" Relationship="Self.FK_Location_Vehicule" FromRole="Location" ToRole="Vehicule" />
+  </EntityType>
+  <EntityType Name="Operation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdFacture" Type="Int32" Nullable="false" />
+    <Property Name="IdVehicule" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Duree" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="DateOperation" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Facture" Relationship="Self.FK_Operation_Facture" FromRole="Operation" ToRole="Facture" />
+    <NavigationProperty Name="Vehicule" Relationship="Self.FK_Operation_Vehicule" FromRole="Operation" ToRole="Vehicule" />
+    <NavigationProperty Name="Piece" Relationship="Self.FK_Piece_Operation" FromRole="Operation" ToRole="Piece" />
+    <NavigationProperty Name="TauxHoraire" Relationship="Self.FK_TauxHoraire_Operation" FromRole="Operation" ToRole="TauxHoraire" />
+  </EntityType>
+  <EntityType Name="Personne">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypePersonne" Type="Int32" Nullable="false" />
+    <Property Name="Nom" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Prenom" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Adresse1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Adresse2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NumeroTelephone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CodePostal" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Ville" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MotDePasse" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ContratAchat" Relationship="Self.FK_ContratAchat_Client" FromRole="Personne" ToRole="ContratAchat" />
+    <NavigationProperty Name="ContratAchat1" Relationship="Self.FK_ContratAchat_Commercial" FromRole="Personne" ToRole="ContratAchat" />
+    <NavigationProperty Name="Location" Relationship="Self.FK_Location_Client" FromRole="Personne" ToRole="Location" />
+    <NavigationProperty Name="Location1" Relationship="Self.FK_Location_Employe" FromRole="Personne" ToRole="Location" />
+    <NavigationProperty Name="Professionnel" Relationship="Self.FK_Client_Personne" FromRole="Personne" ToRole="Professionnel" />
+    <NavigationProperty Name="Vehicule" Relationship="Self.FK_Vehicule_Proprietaire" FromRole="Personne" ToRole="Vehicule" />
+  </EntityType>
+  <EntityType Name="Piece">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdOperation" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Prix" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <NavigationProperty Name="Operation" Relationship="Self.FK_Piece_Operation" FromRole="Piece" ToRole="Operation" />
+  </EntityType>
+  <EntityType Name="Plein">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdFournisseur" Type="Int32" Nullable="false" />
+    <Property Name="IdVehicule" Type="Int32" Nullable="false" />
+    <Property Name="DatePlein" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Volume" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="PrixLitre" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Kilometrage" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Professionnel" Relationship="Self.FK_Plein_Client" FromRole="Plein" ToRole="Professionnel" />
+    <NavigationProperty Name="Vehicule" Relationship="Self.FK_Plein_Vehicule" FromRole="Plein" ToRole="Vehicule" />
+  </EntityType>
+  <EntityType Name="Professionnel">
+    <Key>
+      <PropertyRef Name="IdPersonne" />
+    </Key>
+    <Property Name="IdPersonne" Type="Int32" Nullable="false" />
+    <Property Name="Siret" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="NomEntreprise" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="AdresseEntreprise" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CodePostal" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="VilleEntreprise" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Personne" Relationship="Self.FK_Client_Personne" FromRole="Professionnel" ToRole="Personne" />
+    <NavigationProperty Name="Plein" Relationship="Self.FK_Plein_Client" FromRole="Professionnel" ToRole="Plein" />
+  </EntityType>
+  <EntityType Name="TauxHoraire">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdOperation" Type="Int32" Nullable="false" />
+    <Property Name="Valeur" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="DateModification" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Operation" Relationship="Self.FK_TauxHoraire_Operation" FromRole="TauxHoraire" ToRole="Operation" />
+  </EntityType>
+  <EntityType Name="Vehicule">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Immatriculation" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="IdProprietaire" Type="Int32" />
+    <Property Name="Marque" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Puissance" Type="Int32" Nullable="false" />
+    <Property Name="Couleur" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Modele" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Kilometrage" Type="Int32" Nullable="false" />
+    <Property Name="PrixAchat" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="PrixVente" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="DateAchat" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateVente" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="ConstructeursVoiture" Relationship="Self.FK_Vehicule_ConstructeursVoiture" FromRole="Vehicule" ToRole="ConstructeursVoiture" />
+    <NavigationProperty Name="ContratAchat" Relationship="Self.FK_ContratAchat_Vehicule" FromRole="Vehicule" ToRole="ContratAchat" />
+    <NavigationProperty Name="Location" Relationship="Self.FK_Location_Vehicule" FromRole="Vehicule" ToRole="Location" />
+    <NavigationProperty Name="Operation" Relationship="Self.FK_Operation_Vehicule" FromRole="Vehicule" ToRole="Operation" />
+    <NavigationProperty Name="Personne" Relationship="Self.FK_Vehicule_Proprietaire" FromRole="Vehicule" ToRole="Personne" />
+    <NavigationProperty Name="Plein" Relationship="Self.FK_Plein_Vehicule" FromRole="Vehicule" ToRole="Plein" />
+    <NavigationProperty Name="VehiculeOccasion" Relationship="Self.FK_VehiculeOccasion_Vehicule" FromRole="Vehicule" ToRole="VehiculeOccasion" />
+  </EntityType>
+  <EntityType Name="VehiculeOccasion">
+    <Key>
+      <PropertyRef Name="IdVehicule" />
+      <PropertyRef Name="KilometrageAchat" />
+    </Key>
+    <Property Name="IdVehicule" Type="Int32" Nullable="false" />
+    <Property Name="KilometrageAchat" Type="Int32" Nullable="false" />
+    <Property Name="KilometrageVente" Type="Int32" />
+    <NavigationProperty Name="Vehicule" Relationship="Self.FK_VehiculeOccasion_Vehicule" FromRole="VehiculeOccasion" ToRole="Vehicule" />
+  </EntityType>
+  <Association Name="FK_Vehicule_ConstructeursVoiture">
+    <End Role="ConstructeursVoiture" Type="Self.ConstructeursVoiture" Multiplicity="1" />
+    <End Role="Vehicule" Type="Self.Vehicule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ConstructeursVoiture">
+        <PropertyRef Name="Nom" />
+      </Principal>
+      <Dependent Role="Vehicule">
+        <PropertyRef Name="Marque" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContratAchat_Client">
+    <End Role="Personne" Type="Self.Personne" Multiplicity="1" />
+    <End Role="ContratAchat" Type="Self.ContratAchat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personne">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ContratAchat">
+        <PropertyRef Name="IdClient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContratAchat_Commercial">
+    <End Role="Personne" Type="Self.Personne" Multiplicity="1" />
+    <End Role="ContratAchat" Type="Self.ContratAchat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personne">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ContratAchat">
+        <PropertyRef Name="IdEmploye" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContratAchat_Vehicule">
+    <End Role="Vehicule" Type="Self.Vehicule" Multiplicity="1" />
+    <End Role="ContratAchat" Type="Self.ContratAchat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vehicule">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ContratAchat">
+        <PropertyRef Name="IdVehicule" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Operation_Facture">
+    <End Role="Facture" Type="Self.Facture" Multiplicity="1" />
+    <End Role="Operation" Type="Self.Operation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Facture">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Operation">
+        <PropertyRef Name="IdFacture" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Location_Client">
+    <End Role="Personne" Type="Self.Personne" Multiplicity="1" />
+    <End Role="Location" Type="Self.Location" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personne">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Location">
+        <PropertyRef Name="IdClient" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Location_Employe">
+    <End Role="Personne" Type="Self.Personne" Multiplicity="1" />
+    <End Role="Location" Type="Self.Location" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personne">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Location">
+        <PropertyRef Name="IdEmploye" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Location_Vehicule">
+    <End Role="Vehicule" Type="Self.Vehicule" Multiplicity="1" />
+    <End Role="Location" Type="Self.Location" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vehicule">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Location">
+        <PropertyRef Name="IdVehicule" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Operation_Vehicule">
+    <End Role="Vehicule" Type="Self.Vehicule" Multiplicity="1" />
+    <End Role="Operation" Type="Self.Operation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vehicule">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Operation">
+        <PropertyRef Name="IdVehicule" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Piece_Operation">
+    <End Role="Operation" Type="Self.Operation" Multiplicity="0..1" />
+    <End Role="Piece" Type="Self.Piece" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Operation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Piece">
+        <PropertyRef Name="IdOperation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TauxHoraire_Operation">
+    <End Role="Operation" Type="Self.Operation" Multiplicity="1" />
+    <End Role="TauxHoraire" Type="Self.TauxHoraire" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Operation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TauxHoraire">
+        <PropertyRef Name="IdOperation" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Client_Personne">
+    <End Role="Personne" Type="Self.Personne" Multiplicity="1" />
+    <End Role="Professionnel" Type="Self.Professionnel" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Personne">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Professionnel">
+        <PropertyRef Name="IdPersonne" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Vehicule_Proprietaire">
+    <End Role="Personne" Type="Self.Personne" Multiplicity="0..1" />
+    <End Role="Vehicule" Type="Self.Vehicule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personne">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Vehicule">
+        <PropertyRef Name="IdProprietaire" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Plein_Client">
+    <End Role="Professionnel" Type="Self.Professionnel" Multiplicity="1" />
+    <End Role="Plein" Type="Self.Plein" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Professionnel">
+        <PropertyRef Name="IdPersonne" />
+      </Principal>
+      <Dependent Role="Plein">
+        <PropertyRef Name="IdFournisseur" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Plein_Vehicule">
+    <End Role="Vehicule" Type="Self.Vehicule" Multiplicity="1" />
+    <End Role="Plein" Type="Self.Plein" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vehicule">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Plein">
+        <PropertyRef Name="IdVehicule" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VehiculeOccasion_Vehicule">
+    <End Role="Vehicule" Type="Self.Vehicule" Multiplicity="1" />
+    <End Role="VehiculeOccasion" Type="Self.VehiculeOccasion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vehicule">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="VehiculeOccasion">
+        <PropertyRef Name="IdVehicule" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CarSalesEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ConstructeursVoiture" EntityType="Self.ConstructeursVoiture" />
+    <EntitySet Name="ContratAchat" EntityType="Self.ContratAchat" />
+    <EntitySet Name="Facture" EntityType="Self.Facture" />
+    <EntitySet Name="Location" EntityType="Self.Location" />
+    <EntitySet Name="Operation" EntityType="Self.Operation" />
+    <EntitySet Name="Personne" EntityType="Self.Personne" />
+    <EntitySet Name="Piece" EntityType="Self.Piece" />
+    <EntitySet Name="Plein" EntityType="Self.Plein" />
+    <EntitySet Name="Professionnel" EntityType="Self.Professionnel" />
+    <EntitySet Name="TauxHoraire" EntityType="Self.TauxHoraire" />
+    <EntitySet Name="Vehicule" EntityType="Self.Vehicule" />
+    <EntitySet Name="VehiculeOccasion" EntityType="Self.VehiculeOccasion" />
+    <AssociationSet Name="FK_Vehicule_ConstructeursVoiture" Association="Self.FK_Vehicule_ConstructeursVoiture">
+      <End Role="ConstructeursVoiture" EntitySet="ConstructeursVoiture" />
+      <End Role="Vehicule" EntitySet="Vehicule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContratAchat_Client" Association="Self.FK_ContratAchat_Client">
+      <End Role="Personne" EntitySet="Personne" />
+      <End Role="ContratAchat" EntitySet="ContratAchat" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContratAchat_Commercial" Association="Self.FK_ContratAchat_Commercial">
+      <End Role="Personne" EntitySet="Personne" />
+      <End Role="ContratAchat" EntitySet="ContratAchat" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContratAchat_Vehicule" Association="Self.FK_ContratAchat_Vehicule">
+      <End Role="Vehicule" EntitySet="Vehicule" />
+      <End Role="ContratAchat" EntitySet="ContratAchat" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Operation_Facture" Association="Self.FK_Operation_Facture">
+      <End Role="Facture" EntitySet="Facture" />
+      <End Role="Operation" EntitySet="Operation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Location_Client" Association="Self.FK_Location_Client">
+      <End Role="Personne" EntitySet="Personne" />
+      <End Role="Location" EntitySet="Location" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Location_Employe" Association="Self.FK_Location_Employe">
+      <End Role="Personne" EntitySet="Personne" />
+      <End Role="Location" EntitySet="Location" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Location_Vehicule" Association="Self.FK_Location_Vehicule">
+      <End Role="Vehicule" EntitySet="Vehicule" />
+      <End Role="Location" EntitySet="Location" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Operation_Vehicule" Association="Self.FK_Operation_Vehicule">
+      <End Role="Vehicule" EntitySet="Vehicule" />
+      <End Role="Operation" EntitySet="Operation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Piece_Operation" Association="Self.FK_Piece_Operation">
+      <End Role="Operation" EntitySet="Operation" />
+      <End Role="Piece" EntitySet="Piece" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TauxHoraire_Operation" Association="Self.FK_TauxHoraire_Operation">
+      <End Role="Operation" EntitySet="Operation" />
+      <End Role="TauxHoraire" EntitySet="TauxHoraire" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Client_Personne" Association="Self.FK_Client_Personne">
+      <End Role="Personne" EntitySet="Personne" />
+      <End Role="Professionnel" EntitySet="Professionnel" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Vehicule_Proprietaire" Association="Self.FK_Vehicule_Proprietaire">
+      <End Role="Personne" EntitySet="Personne" />
+      <End Role="Vehicule" EntitySet="Vehicule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Plein_Client" Association="Self.FK_Plein_Client">
+      <End Role="Professionnel" EntitySet="Professionnel" />
+      <End Role="Plein" EntitySet="Plein" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Plein_Vehicule" Association="Self.FK_Plein_Vehicule">
+      <End Role="Vehicule" EntitySet="Vehicule" />
+      <End Role="Plein" EntitySet="Plein" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VehiculeOccasion_Vehicule" Association="Self.FK_VehiculeOccasion_Vehicule">
+      <End Role="Vehicule" EntitySet="Vehicule" />
+      <End Role="VehiculeOccasion" EntitySet="VehiculeOccasion" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

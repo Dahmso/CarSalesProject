@@ -161,6 +161,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
+    <Compile Include="ViewModels\LocationViewModel.cs" />
     <Compile Include="ViewModels\PersonneViewModel.cs" />
     <Compile Include="ViewModels\GestionVehiculeViewModel.cs" />
     <Compile Include="ViewModels\LocationVehiculeViewModel.cs" />
