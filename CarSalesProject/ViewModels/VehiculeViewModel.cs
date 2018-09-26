@@ -12,7 +12,7 @@ namespace CarSalesProject.ViewModels
     public class VehiculeViewModel
     {
         public Vehicule Vehicule { get; set; }
-        
+
         public VehiculeOccasion VehiculeOccasion { get; set; }
 
         [Required(ErrorMessage = "Le type du véhicule doit être renseigné")]
@@ -24,7 +24,9 @@ namespace CarSalesProject.ViewModels
         public List<SelectListItem> CouleursVehicule { get; set; }
 
         [Required(ErrorMessage = "La marque du véhicule doit être renseigné")]
-        [Display(Name = "Statut")]
+        [Display(Name = "Marque")]
         public List<ConstructeursVoiture> Marques { get; set; }
+
+        public string Statut { get; set; }
     }
 }
