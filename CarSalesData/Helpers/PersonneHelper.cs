@@ -44,6 +44,13 @@ namespace CarSalesData.Helpers
         #endregion
 
         #region Methods
+        public List<Personne> GetList()
+        {
+            using (_db = new CarSalesEntities())
+            {
+                return _db.Personne.ToList();
+            }
+        }
         public Personne GetItem(string email, string mdp)
         {
             using (_db = new CarSalesEntities())
@@ -60,6 +67,19 @@ namespace CarSalesData.Helpers
                 }
 
                 return p;
+            }
+        }
+
+        public List<Personne> GetPersonByType(int typePerson)
+        {
+            using (_db = new CarSalesEntities())
+            {
+                var query = from personne in _db.Personne
+                            where personne.TypePersonne == typePerson
+                            select personne;
+                List<Personne> personnes = query.ToList<Personne>();
+
+                return personnes;
             }
         }
         #endregion

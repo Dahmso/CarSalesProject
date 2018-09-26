@@ -11,15 +11,22 @@ namespace CarSalesData
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Location
     {
         public int Id { get; set; }
         public int IdClient { get; set; }
         public int IdEmploye { get; set; }
         public int IdVehicule { get; set; }
+
+        [Display(Name = "Date de début")]
         public System.DateTime DateDebut { get; set; }
+
+        [Display(Name = "Tarif/mois")]
         public decimal PrixLocation { get; set; }
+
+        [Display(Name = "Durée (en mois)")]
         public int Duree { get; set; }
     
         public virtual Personne Personne { get; set; }

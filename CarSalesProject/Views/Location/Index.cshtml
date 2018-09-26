@@ -4,5 +4,71 @@
     ViewBag.Title = "Nouvelle location";
 }
 
-<h2>ViewBag.Title</h2>
+<div class="jumbotron">
+    <h1>@ViewBag.Title</h1>
+</div>
+
+@using (Html.BeginForm("AjouterNouvelleLocation", "Location", FormMethod.Post))
+{
+    <div>
+        @Html.AntiForgeryToken();
+        <div class="form-group">
+            <div>
+                <div class="form-group" style="display:inline-block;">
+                    @Html.LabelFor(m => m.Commercial)
+                    @Html.DropDownListFor(m => m.Location.IdEmploye, Model.Commercial.Select(comm => new SelectListItem
+               {
+                   Value = comm.Id.ToString(),
+                   Text = comm.Nom
+               }), new { @class = "form_control" })
+                </div>
+            </div>
+            <div>
+                <div class="form-group" style="display:inline-block;">
+                    @Html.LabelFor(c => c.Client)
+                    @Html.DropDownListFor(c => c.Location.IdClient, Model.Client.Select(client => new SelectListItem
+               {
+                   Value = client.Id.ToString(),
+                   Text = client.Nom
+               }), new { @class = "form_control" })
+                    <button class="btn btn-info" style="border-radius:100%;" onclick="location.href='@Url.Action("", "")'">+</button>
+                </div>
+            </div>
+            <div>
+                <div class="form-group" style="display:inline-block;">
+                    @Html.LabelFor(v => v.Vehicule)
+                    @Html.DropDownListFor(v => v.Location.IdVehicule, Model.Vehicule.Select(vehicule => new SelectListItem
+               {
+                   Value = vehicule.Id.ToString(),
+                   Text = vehicule.Immatriculation
+               }), new { @class = "form_control" })
+                    <button class="btn btn-info" style="border-radius:100%;" onclick="location.href='@Url.Action("", "")'">+</button>
+                </div>
+            </div>
+            <div>
+                <div class="form-group" style="display:flex; justify-content:space-evenly;">
+                    <div>
+                        @Html.LabelFor(d => d.Location.DateDebut)
+                        @Html.TextBoxFor(d => d.Location.DateDebut, new { @type = "date" })
+                        @Html.ValidationMessageFor(d => d.Location.DateDebut)
+                    </div>
+                    <div>
+                        @Html.LabelFor(d => d.Location.Duree)
+                        @Html.TextBoxFor(d => d.Location.Duree)
+                        @Html.ValidationMessageFor(d => d.Location.Duree)
+                    </div>
+                </div>
+                <div class="form-group" style="display:flex;">
+                    @Html.LabelFor(p => p.Location.PrixLocation)
+                    @Html.TextBoxFor(p => p.Location.PrixLocation)
+                    @Html.ValidationMessageFor(p => p.Location.PrixLocation)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input type="submit" value="Valider" />
+
+}
+
 

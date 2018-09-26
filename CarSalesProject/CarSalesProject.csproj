@@ -156,6 +156,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\GestionVehiculesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -164,7 +165,6 @@
     <Compile Include="ViewModels\LocationViewModel.cs" />
     <Compile Include="ViewModels\PersonneViewModel.cs" />
     <Compile Include="ViewModels\GestionVehiculeViewModel.cs" />
-    <Compile Include="ViewModels\LocationVehiculeViewModel.cs" />
     <Compile Include="ViewModels\VehiculeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -214,7 +214,6 @@
     <Folder Include="Models\" />
     <Folder Include="Views\Administrateur\" />
     <Folder Include="Views\Entretien\" />
-    <Folder Include="Views\GestionVehicule\" />
     <Folder Include="Views\Plein\" />
     <Folder Include="Views\Vente\" />
   </ItemGroup>
