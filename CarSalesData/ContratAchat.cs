@@ -11,13 +11,16 @@ namespace CarSalesData
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class ContratAchat
     {
         public int Id { get; set; }
         public int IdClient { get; set; }
         public int IdEmploye { get; set; }
         public int IdVehicule { get; set; }
+
+        [Display(Name = "Date de vente")]
         public System.DateTime DateContrat { get; set; }
     
         public virtual Personne Personne { get; set; }

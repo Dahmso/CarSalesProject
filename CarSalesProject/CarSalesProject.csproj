@@ -157,6 +157,7 @@
     <Compile Include="Controllers\GestionVehiculesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
+    <Compile Include="Controllers\VenteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -166,6 +167,7 @@
     <Compile Include="ViewModels\PersonneViewModel.cs" />
     <Compile Include="ViewModels\GestionVehiculeViewModel.cs" />
     <Compile Include="ViewModels\VehiculeViewModel.cs" />
+    <Compile Include="ViewModels\VenteViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -208,6 +210,7 @@
     <Content Include="Views\GestionVehicules\AjoutVehicule.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Location\Index.cshtml" />
+    <Content Include="Views\Vente\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -215,7 +218,6 @@
     <Folder Include="Views\Administrateur\" />
     <Folder Include="Views\Entretien\" />
     <Folder Include="Views\Plein\" />
-    <Folder Include="Views\Vente\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

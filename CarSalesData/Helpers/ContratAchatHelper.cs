@@ -42,5 +42,16 @@ namespace CarSalesData.Helpers
         #region  Fields
         private CarSalesEntities _db;
         #endregion
+
+        #region Methods
+        public void Insert(ContratAchat contratAchat)
+        {
+            using (_db = new CarSalesEntities())
+            {
+                _db.ContratAchat.Add(contratAchat);
+                _db.SaveChanges();
+            }
+        }
+        #endregion
     }
 }

@@ -1,0 +1,59 @@
+﻿@model CarSalesProject.ViewModels.VenteViewModel
+
+@{
+    ViewBag.Title = "Nouvelle Vente";
+}
+
+<div class="jumbotron">
+    <h1>@ViewBag.Title</h1>
+</div>
+
+@using (Html.BeginForm("AjouterNouveauContratAchat", "Vente", FormMethod.Post))
+{ 
+    <div>
+        <div class="form-group" style="display:inline-block;">
+            @Html.LabelFor(c => c.Commercial)
+            @Html.DropDownListFor(c => c.ContratAchat.IdEmploye, Model.Client.Select(client => new SelectListItem
+       {
+           Value = client.Id.ToString(),
+           Text = client.Nom
+       }), new { @class = "form_control" })
+            <button class="btn btn-info" style="border-radius:100%;" onclick="location.href='@Url.Action("", "")'">+</button>
+        </div>
+    </div>
+    <div>
+        <div class="form-group" style="display:inline-block;">
+            @Html.LabelFor(c => c.Client)
+            @Html.DropDownListFor(c => c.ContratAchat.IdClient, Model.Client.Select(client => new SelectListItem
+       {
+           Value = client.Id.ToString(),
+           Text = client.Nom
+       }), new { @class = "form_control" })
+            <button class="btn btn-info" style="border-radius:100%;" onclick="location.href='@Url.Action("", "")'">+</button>
+        </div>
+    </div>
+    <div>
+        <div class="form-group" style="display:inline-block">
+            @Html.LabelFor(v => v.Vehicule)
+            @Html.DropDownListFor(v => v.ContratAchat.IdVehicule, Model.Vehicule.Select(vehicule => new SelectListItem
+       {
+           Value = vehicule.Id.ToString(),
+           Text = vehicule.Immatriculation
+       }), new { @class = "form_control" })
+            <button class="btn btn-info" style="border-radius:100%;" onclick="location.href='@Url.Action("", "")'">+</button>
+        </div>
+    </div>
+    <div>
+        @Html.LabelFor(d => d.ContratAchat.DateContrat)
+        @Html.TextBoxFor(d => d.ContratAchat.DateContrat, new { @type = "date" })
+        @Html.ValidationMessageFor(d => d.ContratAchat.DateContrat)
+    </div>
+    <div>
+        @Html.LabelFor(d => d.ContratAchat.Vehicule.PrixAchat)
+        @Html.TextBoxFor(d => d.ContratAchat.Vehicule.PrixAchat)
+        @Html.ValidationMessageFor(d => d.ContratAchat.Vehicule.PrixAchat)
+    </div>
+
+<input type="submit" value="Valider" />
+
+}
